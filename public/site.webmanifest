@@ -1,0 +1,25 @@
+{
+  "name": "MICON - Construction & Engineering Solutions",
+  "short_name": "MICON",
+  "description": "Leading construction and engineering company in Bangladesh specializing in PEB Steel Buildings, RCC Structures, and Industrial Construction",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["construction", "engineering", "business"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "orientation": "portrait-primary"
+}

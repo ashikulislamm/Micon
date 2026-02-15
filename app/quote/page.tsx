@@ -1,5 +1,31 @@
+import { Metadata } from "next";
 import ContactSidebar from "@/sections/quote/ContactSidebar";
 import QuoteForm from "@/sections/quote/QuoteForm";
+
+export const metadata: Metadata = {
+  title: "Get a Quote - Request Construction Project Proposal",
+  description:
+    "Request a comprehensive quote for your industrial construction project. Get expert consultation and detailed proposals for PEB Steel Buildings, RCC Structures, Treatment Plants, and more from MICON.",
+  keywords: [
+    "construction quote Bangladesh",
+    "project proposal",
+    "construction estimate",
+    "PEB quote",
+    "industrial construction cost",
+    "building construction quote",
+    "engineering consultation",
+  ],
+  openGraph: {
+    title: "Get a Quote - MICON Construction Services",
+    description:
+      "Request detailed technical and financial proposals for your next industrial project. Free consultation available.",
+    url: "https://www.micon.com.bd/quote",
+    type: "website",
+  },
+  alternates: {
+    canonical: "/quote",
+  },
+};
 
 export default function QuotePage() {
   return (
