@@ -1,59 +1,92 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Eye } from "lucide-react";
+import Image from "next/image";
+import MissionVission from "@/public/MissionVission.png";
+import SectionTitle from "@/components/SectionTitle";
 
 export default function MissionVision() {
-  const items = [
-    {
-      icon: Target,
-      title: "Our Mission",
-      description:
-        "To deliver high-quality, safe, and sustainable industrial and civil construction projects that exceed client expectations and contribute to infrastructural growth.",
-    },
-    {
-      icon: Eye,
-      title: "Our Vision",
-      description:
-        "To be recognized as Bangladesh's leading construction company by setting benchmarks in innovation, safety, and sustainable infrastructure development that promotes national progress and prosperity.",
-    },
-  ];
-
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {items.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="relative group"
-            >
-              {/* Card */}
-              <div className="h-full bg-background border-l-4 border-primary p-8 lg:p-10 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                {/* Icon */}
-                <div className="mb-6">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10">
-                    <item.icon className="w-7 h-7 text-primary" />
-                  </div>
-                </div>
+        {/* Header */}
+        <SectionTitle
+        label="Our Core"
+          title="Mission & Vision"
+        />
 
-                {/* Title */}
-                <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
-                  {item.title}
-                </h3>
+        {/* Mission Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="space-y-6 mb-12 lg:mb-16"
+        >
+          <p className="text-base sm:text-lg text-foreground leading-relaxed">
+            Our mission is to advance sustainable industrial infrastructure development by
+            delivering efficient, design-build solutions with integrity and expertise.
+          </p>
 
-                {/* Description */}
-                <p className="text-base text-muted-foreground leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          <p className="text-base sm:text-lg text-foreground leading-relaxed">
+            We are dedicated to combining innovation, technical excellence, and modern
+            engineering practices to meet the diverse needs of our clients. Through
+            collaboration, professionalism, and an unwavering commitment to quality, we strive
+            to build enduring structures that support industries, empower businesses, and uplift
+            communities.
+          </p>
+
+          <p className="text-base sm:text-lg text-foreground leading-relaxed">
+            At MICON, every project is more than construction—it is a promise of reliability,
+            sustainability, and long-term value creation.
+          </p>
+        </motion.div>
+
+        {/* Image Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-lg overflow-hidden mb-12 lg:mb-16"
+        >
+          {/* Background Image - Replace with actual image */}
+          <div className="absolute inset-0" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Image src={MissionVission} alt="MICON Mission & Vision" fill className="object-cover" />
+          </div>
+          
+          {/* You can replace the above placeholder with actual image like: */}
+          {/* <Image
+            src="/mission-vision-hero.jpg"
+            alt="MICON Construction Vision"
+            fill
+            className="object-cover"
+          /> */}
+        </motion.div>
+
+        {/* Vision Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="space-y-6"
+        >
+          <p className="text-base sm:text-lg text-foreground leading-relaxed">
+            Our vision is to be the leading force in shaping the future of industrial infrastructure in
+            Bangladesh. We are committed to advancing sustainable infrastructure development
+            that not only strengthens the nation's growth but also enhances its resilience for future
+            generations.
+          </p>
+
+          <p className="text-base sm:text-lg text-foreground leading-relaxed">
+            We aspire to create world-class industrial and commercial facilities that embody
+            innovation, durability, and sustainability. By setting new benchmarks in construction
+            excellence, we aim to contribute to the economic transformation of Bangladesh and build
+            a brighter future for Bangladesh.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Building2, Wrench, Leaf, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import SectionTitle from "@/components/SectionTitle";
 
 const services = [
   {
@@ -19,6 +20,7 @@ const services = [
     description:
       "State-of-the-art equipment fleet including excavators, cranes, and earthmoving machinery for large-scale projects.",
     image: "/hero-bg.jpg",
+    featured : true,
   },
   {
     icon: Leaf,
@@ -26,7 +28,7 @@ const services = [
     description:
       "Advanced geotechnical analysis and soil stabilization techniques ensuring strong foundations and environmental sustainability.",
     image: "/hero-bg.jpg",
-    featured: true,
+    featured: false,
   },
 ];
 
@@ -35,21 +37,11 @@ export default function TechnicalCapacity() {
     <section className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 lg:mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Technical Capacity
-          </h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
-            Operating a fleet of advanced machinery and a technically trained staff allows us to execute
-            complex projects with unmatched efficiency and reliability.
-          </p>
-        </motion.div>
+        <SectionTitle
+          label="Capabilities"
+          title="Technical Capacity"
+          description="Operating a fleet of advanced machinery and a technically trained staff allows us to execute complex projects with unmatched efficiency and reliability."
+        />
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
+import Noman from "@/public/Noman.png";
+import SectionTitle from "@/components/SectionTitle";
 
 export default function Leader() {
   const stats = [
@@ -13,7 +15,13 @@ export default function Leader() {
   return (
     <section className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Section Title */}
+        <SectionTitle
+          label="Leadership"
+          title="Meet Our Managing Director"
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-6 items-center">
           {/* Leader Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -22,12 +30,15 @@ export default function Leader() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative w-full max-w-md mx-auto lg:mx-0 aspect-[3/4] rounded-lg overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-foreground/20" />
+            <div className="relative w-full max-w-md mx-auto lg:mx-0 aspect-[3/4] rounded-lg overflow-hidden">
+              <div className="absolute inset-0" />
               {/* Placeholder for image - replace with actual image */}
-              <div className="w-full h-full bg-muted flex items-center justify-center">
-                <span className="text-muted-foreground">Leader Photo</span>
-              </div>
+              <Image
+                src={Noman}
+                alt="Engr. Noman Or Rashid"
+                fill
+                className="object-cover"
+              />
             </div>
           </motion.div>
 
@@ -45,14 +56,16 @@ export default function Leader() {
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
                 With over 20 years of hands-on experience, Engr. Noman Or Rashid
-                leads the MICON team in delivering world-class infrastructure and industrial
-                construction projects. His commitment to engineering excellence has made us
-                one of the most recognized names in the industry.
+                leads the MICON team in delivering world-class infrastructure
+                and industrial construction projects. His commitment to
+                engineering excellence has made us one of the most recognized
+                names in the industry.
               </p>
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Under his leadership, MICON has successfully executed 100+ complex projects,
-                establishing a track record of safety, quality, and on-time delivery. His vision
-                for sustainable construction continues to drive innovation and technical
+                Under his leadership, MICON has successfully executed 100+
+                complex projects, establishing a track record of safety,
+                quality, and on-time delivery. His vision for sustainable
+                construction continues to drive innovation and technical
                 precision across all our operations.
               </p>
             </div>

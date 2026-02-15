@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Shield, Settings, Leaf } from "lucide-react";
+import SectionTitle from "@/components/SectionTitle";
 
 const values = [
   {
@@ -29,23 +30,10 @@ export default function CoreValues() {
     <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 lg:mb-16"
-        >
-          <div className="mb-4">
-            <span className="text-primary text-sm lg:text-base font-semibold tracking-wider uppercase">
-              FOUNDATION
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Our Core Values
-          </h2>
-          <div className="w-16 h-1 bg-primary mt-4" />
-        </motion.div>
+        <SectionTitle
+          label="Foundation"
+          title="Our Core Values"
+        />
 
         {/* Values Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

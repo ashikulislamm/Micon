@@ -5,40 +5,43 @@ import { Building2, Layers, Wrench, Factory, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import BG from "@/public/hero-bg.jpg";
+import Steel from "@/public/Steel Building/SB_1.png";
+import Green from "@/public/Green Buildings/GB_2.jpg"
+import Facility from "@/public/Facilities/FC_3.jpg"
+import RCC from "@/public/RCC/RCC_1.jpg"
 
 const expertiseData = [
   {
     icon: Building2,
-    title: "PEB Steel Buildings",
+    title: "Design-Build PEB Steel Buildings",
     description:
-      "Advanced Pre-Engineered Building systems for factories, warehouses, and industrial facilities. Fast construction, cost-effective, and highly durable.",
-    image: BG.src,
+      "Complete design-build Pre-Engineered Building systems for factories, warehouses, and industrial facilities. Fast construction, cost-effective, and highly durable.",
+    image: Steel.src,
     link: "/services/peb-steel",
   },
   {
     icon: Layers,
-    title: "Turnkey RCC Structures",
+    title: "Turnkey RCC & Steel Structures",
     description:
-      "Complete Reinforced Cement Concrete construction services from foundation to finishing. Engineered for strength and longevity.",
-    image: BG.src,
-    link: "/services/rcc-structures",
+      "Complete turnkey construction combining both RCC and steel structural systems from foundation to finishing. Single-source project delivery.",
+    image: RCC.src,
+    link: "/services/turnkey-construction",
   },
   {
     icon: Wrench,
-    title: "ETP/WTP Facilities",
+    title: "ETP/WTP/STP & RMS Facilities",
     description:
-      "Specialized construction of Effluent Treatment Plants and Water Treatment Plants with environmental compliance and efficiency.",
-    image: BG.src,
-    link: "/services/etp-wtp",
+      "Specialized construction of treatment plants (ETP, WTP, STP) and Reliable Mechanical Systems rooms with environmental compliance and automation.",
+    image: Facility.src,
+    link: "/services/treatment-plants",
   },
   {
     icon: Factory,
-    title: "Sustainable Green Construction",
+    title: "BIM & Modular Construction Tech",
     description:
-      "LEED-certified factory buildings and eco-friendly construction solutions that reduce environmental impact while maximizing efficiency.",
-    image: BG.src,
-    link: "/services/green-construction",
+      "Advanced Building Information Modeling, modular construction, and automation technologies for next-generation industrial projects.",
+    image: Green.src,
+    link: "/services/technology",
   },
 ];
 

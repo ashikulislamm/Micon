@@ -2,6 +2,8 @@ import Hero from "@/sections/home/Hero";
 import { Certifications } from "@/sections/home/Certifications";
 import Expertise from "@/sections/home/Expertise";
 import Stats from "@/sections/home/Stats";
+import FeaturedProjects from "@/sections/home/FeaturedProjects";
+import Partners from "@/sections/home/Partners";
 
 export default function Home() {
   return (
@@ -10,6 +12,8 @@ export default function Home() {
       <Certifications />
       <Expertise />
       <Stats />
+      <FeaturedProjects />
+      <Partners />
 
       {/* Extra content to test scroll behavior */}
       <section className="min-h-screen flex items-center justify-center bg-card">
