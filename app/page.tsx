@@ -21,7 +21,8 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "MICON - Leading Construction & Engineering Solutions",
-    description: "Transform your industrial vision into reality with Bangladesh's trusted construction partner.",
+    description:
+      "Transform your industrial vision into reality with Bangladesh's trusted construction partner.",
     url: "https://www.micon.com.bd",
     type: "website",
   },
@@ -36,18 +37,6 @@ export default function Home() {
       <Stats />
       <FeaturedProjects />
       <Partners />
-
-      {/* Extra content to test scroll behavior */}
-      <section className="min-h-screen flex items-center justify-center bg-card">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Additional Sections Coming Soon
-          </h2>
-          <p className="text-muted-foreground">
-            Hero section is complete - test the responsive design and animations
-          </p>
-        </div>
-      </section>
     </div>
   );
 }
