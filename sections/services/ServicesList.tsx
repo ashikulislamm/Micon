@@ -221,7 +221,7 @@ export default function ServicesList() {
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       {/* Badge */}
-                      <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
+                      <div className="absolute top-4 left-4 bg-primary/20 backdrop-blur-sm text-primary-foreground px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
                         {service.badge}
                       </div>
                     </div>

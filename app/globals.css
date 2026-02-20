@@ -169,3 +169,19 @@
     animation-duration: 30s;
   }
 }
+
+/* Custom Scrollbar Hide Utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animation Delay Utilities */
+.delay-700 {
+  animation-delay: 700ms;
+}
+

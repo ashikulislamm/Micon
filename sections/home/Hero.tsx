@@ -43,9 +43,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6 lg:mb-8"
           >
-            <div className="bg-primary px-4 py-1.5 rounded-sm">
-              <span className="text-xs lg:text-sm font-semibold text-white tracking-wider">
-                ESTABLISHED SINCE 2018
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
+              <span className="text-sm font-semibold text-white">
+                Established Since 1995
               </span>
             </div>
           </motion.div>
@@ -82,21 +82,32 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center items-center"
           >
+            {/* Primary CTA - Portfolio */}
             <Button
               size="lg"
-              className="group text-base font-semibold px-8 h-12 lg:h-14 lg:px-10 lg:text-lg"
+              className="group relative overflow-hidden bg-primary hover:bg-primary/90 text-white font-semibold px-10 lg:px-12 h-14 lg:h-16 text-base lg:text-lg rounded-full shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 border-2 border-primary hover:border-primary/80"
             >
-              VIEW PORTFOLIO
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <span className="relative z-10 flex items-center gap-3">
+                VIEW PORTFOLIO
+                <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6 transition-transform group-hover:translate-x-2 duration-300" />
+              </span>
+              {/* Shimmer Effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             </Button>
+
+            {/* Secondary CTA - Expertise */}
             <Button
-              variant="outlineSecondary"
               size="lg"
-              className="text-base font-semibold px-8 h-12 lg:h-14 lg:px-10 lg:text-lg"
+              className="group relative overflow-hidden bg-transparent hover:bg-white/10 text-white font-semibold px-10 lg:px-12 h-14 lg:h-16 text-base lg:text-lg rounded-full border-2 border-white/40 hover:border-white transition-all duration-300 backdrop-blur-sm shadow-lg"
             >
-              EXPERTISE
+              <span className="relative z-10 flex items-center gap-3">
+                <Wrench className="h-5 w-5 lg:h-6 lg:w-6 transition-transform group-hover:rotate-12 duration-300" />
+                OUR EXPERTISE
+              </span>
+              {/* Glow Effect on Hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/5" />
             </Button>
           </motion.div>
         </div>

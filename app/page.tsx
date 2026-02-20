@@ -4,6 +4,7 @@ import { Certifications } from "@/sections/home/Certifications";
 import Expertise from "@/sections/home/Expertise";
 import Stats from "@/sections/home/Stats";
 import FeaturedProjects from "@/sections/home/FeaturedProjects";
+import CTA from "@/sections/home/CTA";
 import Partners from "@/sections/home/Partners";
 
 export const metadata: Metadata = {
@@ -36,7 +37,9 @@ export default function Home() {
       <Expertise />
       <Stats />
       <FeaturedProjects />
+      
       <Partners />
+      <CTA />
     </div>
   );
 }
