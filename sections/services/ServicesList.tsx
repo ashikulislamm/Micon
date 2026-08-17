@@ -1,16 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Building2,
   Layers,
   Droplets,
   ShieldCheck,
   Hammer,
-  Shield,
   Factory,
   Cpu,
   ArrowRight,
+  CheckCircle2,
+  X,
+  Clock,
+  Shield,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -21,274 +27,486 @@ import Facility from "@/public/Facilities/FC_3.jpg";
 import RCC from "@/public/RCC/RCC_1.jpg";
 
 interface Service {
+  id: string;
+  shortTag: string;
   icon: React.ElementType;
   title: string;
   shortDescription: string;
   description: string;
   features: string[];
+  specs: { label: string; value: string }[];
+  timeline: string;
+  warranty: string;
   image: string;
   badge: string;
-  link: string;
 }
 
 const servicesData: Service[] = [
   {
+    id: "peb",
+    shortTag: "PEB Steel",
     icon: Building2,
-    title: "Design-Build Construction of Pre-Engineered Steel Buildings",
+    title: "Design-Build PEB Steel Buildings",
     shortDescription:
-      "Industry-leading PEB solutions with integrated design-build approach for rapid deployment and maximum efficiency.",
+      "Industry-leading Pre-Engineered Steel Building systems with 60m+ clear span capability and 50% faster erection.",
     description:
-      "Our comprehensive Pre-Engineered Building systems combine design excellence with construction expertise. We deliver optimal structural integrity through engineered steel frameworks suitable for factories, warehouses, and large-scale industrial facilities. Our design-build methodology ensures seamless project execution from concept to completion.",
+      "Our comprehensive Pre-Engineered Building (PEB) systems combine 3D BIM structural modeling with off-site CNC steel fabrication. We deliver optimal clear spans suitable for industrial factories, warehouses, garment manufacturing units, and logistic hubs across Bangladesh under a single design-build contract.",
     features: [
-      "Complete design-build approach for streamlined delivery",
-      "Clear span up to 60+ meters without intermediate columns",
-      "Seismic-resistant design with wind load calculations",
-      "35% faster construction compared to conventional methods",
-      "Energy-efficient roofing and insulation systems",
+      "Single-source design-build execution eliminating contractor friction",
+      "Clear spans up to 60+ meters without intermediate columns",
+      "Seismic Zone 4 earthquake resilience & wind load engineering",
+      "35-50% faster construction compared to conventional RCC",
+      "Thermal insulation & solar-ready high-slope roofing panels",
     ],
+    specs: [
+      { label: "Clear Span", value: "Up to 60+ Meters" },
+      { label: "Steel Grade", value: "ASTM A572 Grade 50 High-Tensile" },
+      { label: "Design Code", value: "AISC 360-16 & BNBC 2020" },
+      { label: "Erection Speed", value: "50% Faster Than RCC" },
+    ],
+    timeline: "3 to 6 Months",
+    warranty: "25-Year Structural Warranty",
     image: Steel.src,
     badge: "Most Popular",
-    link: "/services/peb-steel",
   },
   {
+    id: "rcc",
+    shortTag: "RCC Turnkey",
     icon: Layers,
-    title: "Turnkey Construction of Both RCC and Steel Structures",
-    description:
-      "Complete end-to-end construction services combining both Reinforced Cement Concrete and Steel structural systems. Our turnkey solutions encompass design, engineering, procurement, construction, and commissioning for hybrid or standalone structures, offering clients a single point of responsibility.",
+    title: "Turnkey Construction of RCC & Steel Hybrid Structures",
     shortDescription:
-      "Comprehensive turnkey solutions integrating RCC and steel construction with complete project management.",
+      "End-to-end turnkey civil construction combining heavy RCC deep bored piling foundations with structural steel superstructures.",
+    description:
+      "Integrated turnkey construction services combining high-strength Reinforced Cement Concrete (RCC) foundations, cast-in-situ columns, and structural steel frames under a single contract. Complete project delivery from soil testing to final handover.",
     features: [
-      "Hybrid structural solutions combining RCC and steel",
-      "Single-source accountability from design to handover",
-      "Foundation to finishing - complete construction services",
-      "Optimized structural design for cost-effectiveness",
-      "In-house quality control and material certification",
+      "Hybrid structural solutions combining heavy RCC & PEB steel",
+      "Single-source accountability from architectural drafting to handover",
+      "Deep bored piling & high-load capacity substructure foundations",
+      "In-house quality control and laboratory material certification",
+      "Strict compliance with BNBC 2020 & ACI structural standards",
     ],
+    specs: [
+      { label: "Foundation Type", value: "Cast-in-situ Deep Bored Piles" },
+      { label: "Concrete Grade", value: "C30 - C45 High-Strength RCC" },
+      { label: "Quality Standard", value: "ISO 9001:2015 Verified" },
+      { label: "Safety Record", value: "Zero Incident Protocol" },
+    ],
+    timeline: "6 to 12 Months",
+    warranty: "30-Year Foundation & Structure",
     image: RCC.src,
     badge: "Turnkey Solution",
-    link: "/services/turnkey-construction",
   },
   {
+    id: "etp",
+    shortTag: "ETP/WTP",
     icon: Droplets,
-    title: "Construction of ETP, WTP, STP, and RMS Rooms",
-    description:
-      "Specialized construction services for Effluent Treatment Plants, Water Treatment Plants, Sewage Treatment Plants, and Reliable Mechanical Systems rooms. We deliver fully integrated environmental compliance facilities with chemical-resistant infrastructure, automated controls, and sustainable treatment technologies.",
+    title: "Construction of ETP, WTP, STP & RMS Facilities",
     shortDescription:
-      "Complete environmental facility construction with ETP, WTP, STP, and mechanical systems integration.",
+      "Turnkey Effluent & Water Treatment Facilities with Zero Liquid Discharge (ZLD) complying with DoE Bangladesh regulations.",
+    description:
+      "Specialized civil and mechanical construction of Effluent Treatment Plants (ETP), Water Treatment Plants (WTP), Sewage Treatment Plants (STP), and Reliable Mechanical Systems (RMS) rooms. Designed with chemical-resistant concrete and automated SCADA controls.",
     features: [
-      "Multi-disciplinary treatment plant construction expertise",
-      "Chemical-resistant concrete and specialized coatings",
-      "RMS rooms with mechanical and electrical integration",
-      "Automated monitoring and SCADA systems",
-      "Zero Liquid Discharge (ZLD) and environmental compliance",
+      "Complete DoE Bangladesh Department of Environment compliance",
+      "Chemical-resistant RCC tanks with anti-corrosive epoxy coatings",
+      "Integrated RMS rooms with centralized mechanical & electrical setups",
+      "SCADA automated PLC control for real-time water quality monitoring",
+      "Zero Liquid Discharge (ZLD) & industrial water recycling loops",
     ],
+    specs: [
+      { label: "Plant Capacity", value: "10 m³/hr to 500+ m³/hr" },
+      { label: "Compliance", value: "Department of Environment (DoE)" },
+      { label: "Tank Coating", value: "Heavy Chemical Epoxy Resin" },
+      { label: "Control System", value: "Automated SCADA PLC" },
+    ],
+    timeline: "4 to 8 Months",
+    warranty: "15-Year Environmental Integrity",
     image: Facility.src,
     badge: "Eco-Certified",
-    link: "/services/treatment-plants",
   },
   {
+    id: "boundary",
+    shortTag: "Perimeter Wall",
     icon: ShieldCheck,
-    title: "Boundary Wall Construction",
-    description:
-      "Professional boundary wall construction services providing security, demarcation, and aesthetic perimeter solutions for industrial facilities. Our boundary walls are engineered for durability, security, and compliance with local regulations, featuring options for decorative finishes, security enhancements, and long-term weather resistance.",
+    title: "Industrial Boundary Wall Construction",
     shortDescription:
-      "Robust industrial boundary wall construction with security features and aesthetic finishes.",
+      "Heavy-duty precast & cast-in-situ perimeter security walls with anti-climb provisions and aesthetic finishes.",
+    description:
+      "Engineered perimeter boundary wall construction providing physical security, site demarcation, and weather-resistant security solutions for industrial factories, export processing zones (BEPZA), and commercial properties.",
     features: [
-      "Reinforced concrete foundation and structural design",
-      "Height customization from 6ft to 12ft or more",
-      "Security enhancements - barbed wire, CCTV mounts",
-      "Decorative options with plastering and painting",
-      "Gate integration and access control systems",
+      "Heavy RCC footing foundations designed for high wind load pressure",
+      "Height options customizable from 6ft to 14ft with security caps",
+      "Anti-climb razor wire mounts, CCTV conduit, and security lighting",
+      "Plastered, painted, or textured architectural exterior finishes",
+      "Automated heavy sliding gate integration and guard post structures",
     ],
+    specs: [
+      { label: "Height Range", value: "6 ft to 14 ft Height" },
+      { label: "Wall Thickness", value: "5 inch to 10 inch Heavy RCC" },
+      { label: "Security Mesh", value: "Concertina Razor Wire Mounted" },
+      { label: "Wind Rating", value: "Up to 240 km/h Wind Resistance" },
+    ],
+    timeline: "1 to 3 Months",
+    warranty: "20-Year Perimeter Protection",
     image: Steel.src,
-    badge: "Security & Aesthetics",
-    link: "/services/boundary-wall",
+    badge: "Perimeter Security",
   },
   {
+    id: "retro",
+    shortTag: "Retrofitting",
     icon: Hammer,
-    title: "Civil and Steel Structure Retrofitting Works",
-    description:
-      "Expert retrofitting and rehabilitation services to strengthen, modernize, and extend the lifespan of existing civil and steel structures. We employ advanced assessment techniques, structural strengthening methods, and code compliance upgrades to ensure safety, functionality, and regulatory adherence for aging or damaged structures.",
+    title: "Civil & Steel Structure Retrofitting Works",
     shortDescription:
-      "Structural rehabilitation and strengthening services for existing RCC and steel buildings.",
+      "Structural rehabilitation, carbon-fiber jacketing, and seismic strengthening for existing factories and commercial buildings.",
+    description:
+      "Expert structural health auditing, retrofitting, and load capacity upgrading for aging or damaged RCC and steel facilities. We apply advanced carbon fiber reinforcement, concrete column jacketing, and steel member replacement.",
     features: [
-      "Structural health assessment and load testing",
-      "Carbon fiber reinforcement and jacketing techniques",
-      "Steel member strengthening and replacement",
-      "Seismic retrofitting for enhanced earthquake resistance",
-      "Code compliance upgrades and regulatory approvals",
+      "Non-destructive testing (NDT), ultrasonic & core load testing",
+      "Carbon fiber reinforced polymer (CFRP) wrapping & jacketing",
+      "Structural steel beam & column flange plate reinforcement",
+      "Seismic retrofitting for Zone 4 earthquake compliance",
+      "Official safety certification & regulatory compliance approval",
     ],
+    specs: [
+      { label: "Assessment Tech", value: "NDT Ultrasonic & Core Testing" },
+      { label: "Strength Upgrade", value: "Up to 50%+ Load Enhancement" },
+      { label: "Materials", value: "High-Modulus CFRP & Steel Plates" },
+      { label: "Approval", value: "Certified Structural Audit" },
+    ],
+    timeline: "2 to 4 Months",
+    warranty: "15-Year Structural Enhancement",
     image: RCC.src,
     badge: "Rehabilitation Expert",
-    link: "/services/retrofitting",
   },
   {
+    id: "infra",
+    shortTag: "Utility Infrastructure",
     icon: Factory,
     title: "Industrial Utility Infrastructure Construction",
-    description:
-      "Comprehensive industrial utility infrastructure development including roads, drainage systems, electrical distribution networks, water supply lines, compressed air systems, and sewage networks. We create robust utility backbones that support seamless industrial operations with reliability and efficiency.",
     shortDescription:
-      "Complete utility infrastructure development for industrial complexes and manufacturing facilities.",
+      "Complete civil infrastructure including heavy heavy-duty roads, underground drainage, electrical substations, and gas pipelines.",
+    description:
+      "Comprehensive utility infrastructure development for manufacturing plants, industrial parks, and EPZ zones. We build internal heavy-vehicle road networks, underground storm water drainage, electrical substations, and utility distribution grids.",
     features: [
-      "Internal road networks with heavy-duty pavement design",
-      "Underground drainage and stormwater management systems",
-      "Electrical substation and distribution infrastructure",
-      "Water supply networks with fire hydrant systems",
-      "Compressed air, steam, and gas distribution lines",
+      "Heavy-duty RCC pavement & asphalt roads for 50T container trucks",
+      "Underground storm water drainage & sewage retention networks",
+      "Substation civil foundations, transformer yards & cable trenches",
+      "Fire hydrant loop piping & high-pressure compressed air distribution",
+      "Water supply networks with underground reservoir tanks",
     ],
+    specs: [
+      { label: "Road Capacity", value: "50-100 Ton Axle Load Rating" },
+      { label: "Drainage Type", value: "Covered RCC Box Culverts" },
+      { label: "Fire Piping", value: "NFPA Standard Hydrant Loop" },
+      { label: "Substation Civil", value: "Transformer Base & Trenches" },
+    ],
+    timeline: "3 to 6 Months",
+    warranty: "25-Year Utility Infrastructure",
     image: Green.src,
     badge: "Infrastructure",
-    link: "/services/utility-infrastructure",
   },
   {
+    id: "bim",
+    shortTag: "BIM & Automation",
     icon: Cpu,
-    title: "Implementation of BIM, Modular Construction, and Automation Technologies",
-    description:
-      "Cutting-edge technology integration services featuring Building Information Modeling (BIM), modular construction techniques, and automated construction processes. We leverage Industry 4.0 technologies to enhance project accuracy, reduce construction timelines, minimize waste, and deliver data-driven project insights throughout the construction lifecycle.",
+    title: "BIM, Modular Construction & Automation",
     shortDescription:
-      "Advanced construction technology implementation with BIM, modular systems, and automation for next-gen projects.",
+      "Building Information Modeling (BIM LOD-400), 3D clash detection, off-site modular fabrication, and CNC automated welding.",
+    description:
+      "Cutting-edge construction technology integration using Building Information Modeling (BIM LOD-400), off-site modular pre-fabrication, and automated CNC beam fabrication. We eliminate field clashes and reduce construction timelines significantly.",
     features: [
-      "Full BIM implementation from design through operations",
-      "3D modeling, clash detection, and virtual construction",
-      "Off-site modular fabrication for faster assembly",
-      "Automated construction robotics and machinery",
-      "Digital twin technology for lifecycle management",
+      "Full BIM LOD-400 digital twin modeling from engineering to handover",
+      "3D clash detection eliminating field rework & structural conflicts",
+      "Off-site modular component fabrication for rapid site assembly",
+      "Automated CNC beam cutting & submerged arc welding systems",
+      "Digital asset management for long-term facility maintenance",
     ],
+    specs: [
+      { label: "BIM Standard", value: "LOD-400 3D Digital Twin" },
+      { label: "Accuracy", value: "100% Clash-Free Digital Model" },
+      { label: "Fabrication", value: "Automated CNC Robotic Welding" },
+      { label: "Time Savings", value: "Up to 40% Field Time Reduction" },
+    ],
+    timeline: "Integrated Across Project Lifecycle",
+    warranty: "Lifecycle Digital Model",
     image: Facility.src,
     badge: "Technology Leader",
-    link: "/services/technology",
   },
 ];
 
 export default function ServicesList() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+
+  const currentService = servicesData[currentIndex];
+  const Icon = currentService.icon;
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % servicesData.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + servicesData.length) % servicesData.length);
+  };
+
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section className="py-16 lg:py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
+        {/* Centered Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-12">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 lg:mb-4 uppercase"
+            className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 uppercase"
           >
-            What We Offer
+            CAPABILITIES & SPECIALIZATIONS
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4"
           >
-            Complete Engineering Services
+            Complete <span className="font-accent italic text-primary">Engineering</span> Services
           </motion.h2>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "100px" }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="h-1 bg-primary mx-auto"
-          />
+            className="font-body text-sm lg:text-base text-muted-foreground leading-relaxed"
+          >
+            Explore our specialized turnkey construction capabilities. Select any service tab below to inspect detailed specifications.
+          </motion.p>
         </div>
 
-        {/* Services */}
-        <div className="space-y-16 lg:space-y-24">
-          {servicesData.map((service, index) => {
-            const Icon = service.icon;
-            const isEven = index % 2 === 0;
+        {/* Quick Tab Selector Strip 
+        <div className="flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none gap-2 pb-4 mb-8">
+          {servicesData.map((item, idx) => (
+            <button
+              key={item.id}
+              onClick={() => setCurrentIndex(idx)}
+              className={`font-heading text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl whitespace-nowrap transition-all cursor-pointer border ${
+                currentIndex === idx
+                  ? "bg-primary text-white border-primary shadow-md shadow-primary/20 scale-105"
+                  : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+              }`}
+            >
+              0{idx + 1}. {item.shortTag}
+            </button>
+          ))}
+        </div>*/}
 
-            return (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className={`flex flex-col ${
-                  isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-                } gap-8 lg:gap-12 items-center`}
-              >
-                {/* Image Section */}
-                <div className="w-full lg:w-1/2">
-                  <div className="relative group">
-                    <div className="relative w-full h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      {/* Badge */}
-                      <div className="absolute top-4 left-4 bg-primary/20 backdrop-blur-sm text-primary-foreground px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-                        {service.badge}
+        {/* Hero Slider Card Showcase */}
+        <div className="relative max-w-7xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentService.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="bg-card rounded-2xl border border-border shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12"
+            >
+              {/* Left Image Side */}
+              <div className="lg:col-span-5 relative h-64 sm:h-80 lg:h-auto min-h-[300px]">
+                <Image
+                  src={currentService.image}
+                  alt={currentService.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden" />
+                <div className="absolute top-4 left-4">
+                  <span className="font-heading px-3 py-1 bg-primary text-white text-[10px] font-semibold uppercase tracking-wider rounded-full shadow-xs">
+                    {currentService.badge}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Details Side */}
+              <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between space-y-6">
+                <div>
+                  <div className="flex items-center justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <Icon className="w-5 h-5" />
                       </div>
+                      <span className="font-heading text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                        0{currentIndex + 1} / 0{servicesData.length}
+                      </span>
                     </div>
-                    {/* Decorative Element */}
-                    <div
-                      className={`hidden lg:block absolute top-8 ${
-                        isEven ? "-right-8" : "-left-8"
-                      } w-32 h-32 bg-primary/5 rounded-2xl -z-10`}
-                    />
+
+                    {/* Navigation Buttons */}
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={handlePrev}
+                        className="w-9 h-9 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                        aria-label="Previous Service"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={handleNext}
+                        className="w-9 h-9 rounded-full border border-border bg-background flex items-center justify-center text-foreground hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                        aria-label="Next Service"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <h3 className="font-heading text-2xl sm:text-3xl font-bold text-card-foreground leading-snug mb-2">
+                    {currentService.title}
+                  </h3>
+
+                  <p className="font-accent text-sm font-semibold text-primary mb-3">
+                    {currentService.shortDescription}
+                  </p>
+
+                  <p className="font-body text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
+                    {currentService.description}
+                  </p>
+
+                  {/* Highlights List */}
+                  <div className="space-y-2 pt-4 border-t border-border">
+                    {currentService.features.slice(0, 3).map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-center gap-2.5 text-xs font-body text-card-foreground">
+                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                        <span className="truncate">{feat}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Content Section */}
-                <div className="w-full lg:w-1/2">
-                  {/* Icon + Title */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-2xl lg:text-3xl font-bold text-foreground">
-                      {service.title}
+                {/* Actions */}
+                <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-border">
+                  <Button
+                    onClick={() => setSelectedService(currentService)}
+                    className="font-heading text-xs uppercase tracking-wider h-11 px-5"
+                  >
+                    View Detailed Specifications
+                    <ArrowRight className="w-4 h-4 ml-1.5" />
+                  </Button>
+                  <Link href={`/quote?service=${currentService.id}`}>
+                    <Button variant="outline" className="font-heading text-xs uppercase tracking-wider h-11 px-5 border-primary/50 text-primary hover:bg-primary hover:text-white">
+                      Request Proposal
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Detailed Spec Modal Drawer */}
+        <AnimatePresence>
+          {selectedService && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+              onClick={() => setSelectedService(null)}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="bg-card w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl border border-border shadow-2xl p-6 sm:p-8 space-y-6 relative"
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedService(null)}
+                  className="absolute top-4 right-4 w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/20 transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* Modal Header */}
+                <div className="flex items-center gap-3 pr-10">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    {(() => {
+                      const ModalIcon = selectedService.icon;
+                      return <ModalIcon className="w-6 h-6" />;
+                    })()}
+                  </div>
+                  <div>
+                    <span className="font-accent text-xs font-semibold text-primary uppercase tracking-wider">
+                      TECHNICAL SPECIFICATIONS
+                    </span>
+                    <h3 className="font-heading text-xl sm:text-2xl font-bold text-card-foreground">
+                      {selectedService.title}
                     </h3>
                   </div>
+                </div>
 
-                  {/* Short Description */}
-                  <p className="text-base lg:text-lg text-primary font-semibold mb-4">
-                    {service.shortDescription}
-                  </p>
+                {/* Key Specs Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-muted/40 p-4 rounded-xl border border-border">
+                  {selectedService.specs.map((sp, idx) => (
+                    <div key={idx} className="space-y-1">
+                      <div className="font-body text-[11px] text-muted-foreground uppercase tracking-wider">
+                        {sp.label}
+                      </div>
+                      <div className="font-heading text-xs sm:text-sm font-bold text-card-foreground">
+                        {sp.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-                  {/* Full Description */}
-                  <p className="text-sm lg:text-base text-foreground/70 leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="space-y-3 mb-8">
-                    <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">
-                      Key Features:
-                    </h4>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-3 text-sm text-foreground/70"
-                        >
-                          <Shield className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                {/* Full Features List */}
+                <div className="space-y-3">
+                  <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-card-foreground">
+                    Engineering Scope & Capabilities:
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {selectedService.features.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-2.5 text-xs font-body text-card-foreground bg-card p-2.5 rounded-lg border border-border">
+                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
                   </div>
+                </div>
 
-                  {/* CTA Button */}
-                  <Link href={service.link}>
-                    <Button
-                      size="lg"
-                      className="group text-base font-semibold"
-                    >
-                      View Detailed Specifications
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                {/* Timeline & Warranty */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  <div className="flex items-center gap-3 p-3.5 bg-primary/5 rounded-xl border border-primary/20">
+                    <Clock className="w-5 h-5 text-primary shrink-0" />
+                    <div>
+                      <div className="font-body text-[11px] text-muted-foreground uppercase">Estimated Timeline</div>
+                      <div className="font-heading text-xs sm:text-sm font-bold text-foreground">{selectedService.timeline}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3.5 bg-primary/5 rounded-xl border border-primary/20">
+                    <Shield className="w-5 h-5 text-primary shrink-0" />
+                    <div>
+                      <div className="font-body text-[11px] text-muted-foreground uppercase">Warranty Coverage</div>
+                      <div className="font-heading text-xs sm:text-sm font-bold text-foreground">{selectedService.warranty}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Footer CTA */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border">
+                  <p className="font-body text-xs text-muted-foreground">
+                    Ready to build? Consult our principal engineers for custom site specs.
+                  </p>
+                  <Link href={`/quote?service=${selectedService.id}`} className="w-full sm:w-auto">
+                    <Button className="font-heading text-xs uppercase tracking-wider h-11 px-6 w-full sm:w-auto">
+                      Get Tailored Proposal <ArrowRight className="w-4 h-4 ml-1.5" />
                     </Button>
                   </Link>
                 </div>
               </motion.div>
-            );
-          })}
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

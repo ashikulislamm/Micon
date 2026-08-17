@@ -120,15 +120,15 @@ export default function QuoteForm() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white rounded-lg shadow-sm border border-border"
+      className="bg-card rounded-xl shadow-sm border border-border"
     >
       {/* Progress Header */}
       <div className="border-b border-border p-6 lg:p-8">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-foreground">
+          <h3 className="font-heading text-lg font-semibold text-card-foreground">
             Project Details{" "}
-            <span className="text-muted-foreground font-normal">
-              Step {currentStep} of 2
+            <span className="font-body text-muted-foreground font-normal">
+              (Step {currentStep} of 2)
             </span>
           </h3>
         </div>
@@ -136,12 +136,12 @@ export default function QuoteForm() {
         {/* Progress Bar */}
         <div className="flex gap-2">
           <div
-            className={`flex-1 h-1.5 rounded-full ${
+            className={`flex-1 h-2 rounded-full transition-all duration-300 ${
               currentStep >= 1 ? "bg-primary" : "bg-muted"
             }`}
           />
           <div
-            className={`flex-1 h-1.5 rounded-full ${
+            className={`flex-1 h-2 rounded-full transition-all duration-300 ${
               currentStep >= 2 ? "bg-primary" : "bg-muted"
             }`}
           />

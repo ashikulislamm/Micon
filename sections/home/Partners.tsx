@@ -61,10 +61,13 @@ export default function Partners() {
   return (
     <section className="relative py-16 md:py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-sm md:text-base font-normal tracking-[0.2em] text-gray-400 uppercase">
-            {CONFIG.section.title}
+        {/* Centered Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
+          <p className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 uppercase">
+            STRATEGIC ALLIANCES
+          </p>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+            Global Strategic <span className="font-accent italic text-primary">Partners</span>
           </h2>
         </div>
 

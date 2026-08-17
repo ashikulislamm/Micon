@@ -34,16 +34,12 @@ const CONFIG = {
 
 export default function CTA() {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
+    <section className="relative py-20 lg:py-28 overflow-hidden bg-background">
       {/* Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:20px_20px]" />
 
-      {/* Minimal Gradient Accents */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-40" />
-      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl opacity-40" />
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto">
+        <div>
           {/* Main CTA Card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -52,13 +48,10 @@ export default function CTA() {
             transition={{ duration: 0.8, type: "spring" }}
             className="relative group"
           >
-            {/* Subtle Shadow Enhancement */}
-            <div className="absolute -inset-1 bg-gray-200 rounded-3xl opacity-0 group-hover:opacity-50 blur-xl transition duration-700" />
-
             {/* Main Card */}
-            <div className="relative bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden">
-              {/* Minimal Top Accent */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+            <div className="relative bg-card rounded-3xl shadow-xl border border-border overflow-hidden">
+              {/* Top Accent Bar */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-primary to-transparent" />
 
               <div className="grid lg:grid-cols-2 gap-12 p-8 lg:p-16">
                 {/* Left Column - Content */}
@@ -69,10 +62,10 @@ export default function CTA() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="inline-flex items-center gap-2 w-fit px-4 py-2 bg-slate-100 rounded-full mb-6 border border-slate-200"
+                    className="inline-flex items-center gap-2 w-fit px-4 py-2 bg-primary/10 rounded-full mb-6 border border-primary/20"
                   >
                     <Sparkles className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
+                    <span className="font-accent text-xs md:text-sm font-semibold text-primary uppercase tracking-wider">
                       {CONFIG.badge}
                     </span>
                   </motion.div>
@@ -83,11 +76,11 @@ export default function CTA() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-3 tracking-tight"
+                    className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-card-foreground mb-3 tracking-tight"
                   >
                     {CONFIG.heading}
                     <br />
-                    <span className="text-primary">{CONFIG.subheading}</span>
+                    <span className="font-accent italic text-primary">{CONFIG.subheading}</span>
                   </motion.h2>
 
                   {/* Description */}
@@ -96,7 +89,7 @@ export default function CTA() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-base lg:text-lg text-muted-foreground mb-8 leading-relaxed"
+                    className="font-body text-base lg:text-lg text-muted-foreground mb-8 leading-relaxed"
                   >
                     {CONFIG.description}
                   </motion.p>
@@ -112,10 +105,10 @@ export default function CTA() {
                     {CONFIG.features.map((feature, index) => (
                       <div
                         key={index}
-                        className="flex items-center gap-2 text-sm lg:text-base text-foreground"
+                        className="flex items-center gap-2 text-sm lg:text-base text-card-foreground"
                       >
                         <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="font-medium">{feature}</span>
+                        <span className="font-body font-medium">{feature}</span>
                       </div>
                     ))}
                   </motion.div>
@@ -131,7 +124,7 @@ export default function CTA() {
                     <Link href="/quote">
                       <Button
                         size="lg"
-                        className="group w-full sm:w-auto relative overflow-hidden bg-primary hover:bg-primary/90 text-white font-semibold px-8 h-14 text-base rounded-full shadow-lg hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+                        className="font-heading group w-full sm:w-auto relative overflow-hidden bg-primary hover:bg-accent text-white font-semibold px-8 h-14 text-sm uppercase tracking-wider rounded-full shadow-lg transition-all duration-300"
                       >
                         <span className="relative z-10 flex items-center gap-2">
                           <FileText className="w-5 h-5" />
@@ -147,9 +140,9 @@ export default function CTA() {
                       <Button
                         size="lg"
                         variant="outline"
-                        className="group w-full sm:w-auto border-2 border-primary/30 hover:border-primary hover:bg-primary/5 text-foreground font-semibold px-8 h-14 text-base rounded-full transition-all duration-300"
+                        className="font-heading w-full sm:w-auto border-2 border-primary/40 hover:border-primary hover:bg-primary/10 text-card-foreground font-semibold px-8 h-14 text-sm uppercase tracking-wider rounded-full transition-all duration-300"
                       >
-                        <MessageSquare className="w-5 h-5" />
+                        <MessageSquare className="w-5 h-5 mr-2" />
                         Schedule Consultation
                       </Button>
                     </Link>
@@ -169,22 +162,19 @@ export default function CTA() {
                         transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                         className="group/card relative"
                       >
-                        {/* Card Glow */}
-                        <div className="absolute -inset-0.5 bg-slate-200 rounded-2xl opacity-0 group-hover/card:opacity-60 blur transition duration-500" />
-
-                        <div className="relative bg-white border border-gray-200 rounded-2xl p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+                        <div className="relative bg-background border border-border rounded-2xl p-6 hover:border-primary/50 transition-all duration-300">
                           <div className="flex items-center gap-4">
                             {/* Icon */}
-                            <div className="flex-shrink-0 w-16 h-16 bg-slate-100 rounded-xl flex items-center justify-center group-hover/card:bg-slate-200 transition-colors">
-                              <TrendingUp className="w-8 h-8 text-primary" />
+                            <div className="flex-shrink-0 w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center">
+                              <TrendingUp className="w-7 h-7 text-primary" />
                             </div>
 
                             {/* Content */}
                             <div>
-                              <div className="text-3xl lg:text-4xl font-bold text-foreground mb-1">
+                              <div className="font-heading text-3xl lg:text-4xl font-bold text-card-foreground mb-1 tracking-tight">
                                 {stat.value}
                               </div>
-                              <div className="text-sm lg:text-base text-muted-foreground font-medium">
+                              <div className="font-body text-sm lg:text-base text-muted-foreground font-medium">
                                 {stat.label}
                               </div>
                             </div>
@@ -202,16 +192,16 @@ export default function CTA() {
                     transition={{ duration: 0.6, delay: 0.7 }}
                     className="relative"
                   >
-                    <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                    <div className="bg-muted/40 rounded-2xl p-6 border border-border">
                       <div className="flex items-start gap-3">
                         <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                           <CheckCircle2 className="w-6 h-6 text-primary" />
                         </div>
                         <div>
-                          <h4 className="font-bold text-foreground mb-1">
+                          <h4 className="font-heading font-bold text-card-foreground mb-1">
                             Trusted by Industry Leaders
                           </h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="font-body text-sm text-muted-foreground">
                             Join 100+ satisfied clients who chose excellence in
                             engineering and construction.
                           </p>
@@ -232,7 +222,7 @@ export default function CTA() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="text-center mt-8"
           >
-            <p className="text-sm text-slate-500">
+            <p className="font-body text-xs sm:text-sm text-muted-foreground">
               🔒 Your information is safe with us. We respect your privacy.
             </p>
           </motion.div>

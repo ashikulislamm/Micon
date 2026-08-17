@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import Hero from "@/sections/home/Hero";
 import { Certifications } from "@/sections/home/Certifications";
 import Expertise from "@/sections/home/Expertise";
+import DesignBuildProcess from "@/sections/home/DesignBuildProcess";
+import MachineryFleet from "@/sections/home/MachineryFleet";
 import Stats from "@/sections/home/Stats";
 import FeaturedProjects from "@/sections/home/FeaturedProjects";
 import CTA from "@/sections/home/CTA";
@@ -35,9 +37,10 @@ export default function Home() {
       <Hero />
       <Certifications />
       <Expertise />
+      <DesignBuildProcess />
+      <MachineryFleet />
       <Stats />
       <FeaturedProjects />
-      
       <Partners />
       <CTA />
     </div>

@@ -1,160 +1,232 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  ClipboardCheck,
-  PenTool,
-  Hammer,
-  CheckCircle,
-  ArrowRight,
-} from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ClipboardCheck, PenTool, Hammer, CheckCircle2, ArrowRight, ShieldCheck, FileCheck2, Cpu, Wrench } from "lucide-react";
 
 interface ProcessStep {
+  id: string;
+  number: string;
   icon: React.ElementType;
   title: string;
+  subtitle: string;
   description: string;
-  number: string;
+  deliverables: string[];
+  duration: string;
+  standards: string;
 }
 
 const processSteps: ProcessStep[] = [
   {
-    icon: ClipboardCheck,
-    title: "Consultation & Assessment",
-    description:
-      "We begin with a comprehensive site evaluation, understanding your requirements, budget constraints, and project timeline. Our team conducts feasibility studies and provides technical recommendations.",
+    id: "survey",
     number: "01",
+    icon: ClipboardCheck,
+    title: "Site Survey & Feasibility",
+    subtitle: "Geotechnical & Architectural Analysis",
+    description:
+      "Comprehensive soil bore testing, site topography survey, architectural requirement audit, and preliminary structural budget estimation.",
+    deliverables: [
+      "Soil Bearing Capacity Report",
+      "Site Topography 3D Scan",
+      "Architectural Feasibility Blueprint",
+      "Preliminary Cost & Timeline Estimation",
+    ],
+    duration: "1 to 2 Weeks",
+    standards: "BNBC 2020 Geotechnical Code",
   },
   {
-    icon: PenTool,
-    title: "Design & Engineering",
-    description:
-      "Our expert engineers create detailed 3D models, structural calculations, and complete blueprints. We ensure compliance with local regulations and international standards.",
+    id: "bim",
     number: "02",
+    icon: PenTool,
+    title: "3D BIM Engineering",
+    subtitle: "Digital Twin & Structural Calculations",
+    description:
+      "Drafting LOD-400 Building Information Modeling (BIM) digital twins, AISC wind & seismic load calculations, and 100% clash detection.",
+    deliverables: [
+      "LOD-400 3D BIM Digital Model",
+      "AISC 360-16 Structural Calculation Sheet",
+      "Zero-Clash MEP & Civil Coordination",
+      "Automated Material Bill of Quantities (BOQ)",
+    ],
+    duration: "2 to 4 Weeks",
+    standards: "AISC 360-16 & BNBC 2020",
   },
   {
-    icon: Hammer,
-    title: "Construction & Execution",
-    description:
-      "With precision project management, we execute construction using quality materials and skilled labor. Real-time monitoring ensures adherence to timelines and safety protocols.",
+    id: "fabrication",
     number: "03",
+    icon: Hammer,
+    subtitle: "Off-Site Manufacturing & Heavy Erection",
+    title: "CNC Fabrication & Erection",
+    description:
+      "Off-site automated CNC beam cutting & submerged arc welding in factory controlled environments, paired with rapid crane site erection.",
+    deliverables: [
+      "CNC Cut & Welded Steel Beams",
+      "Deep Bored RCC Piling Foundations",
+      "Heavy Mobile Crane Site Erection",
+      "Ultrasonic & NDT Weld Inspection",
+    ],
+    duration: "6 to 12 Weeks",
+    standards: "ISO 9001:2015 & AWS D1.1",
   },
   {
-    icon: CheckCircle,
-    title: "Quality Assurance & Handover",
-    description:
-      "Rigorous quality inspections, testing, and documentation are completed before final handover. We provide training, warranties, and ongoing technical support.",
+    id: "handover",
     number: "04",
+    icon: CheckCircle2,
+    subtitle: "Final Testing & Turnkey Commissioning",
+    title: "Quality Audit & Handover",
+    description:
+      "Rigorous non-destructive testing, environmental DoE clearance verification, full load testing, and turnkey facility handover.",
+    deliverables: [
+      "Non-Destructive Structural Test Audit",
+      "DoE Environmental Clearance Certificate",
+      "As-Built BIM Documentation Package",
+      "25-Year Structural Warranty Certification",
+    ],
+    duration: "1 to 2 Weeks",
+    standards: "ISO 14001 & DoE Bangladesh",
   },
 ];
 
 export default function ProcessFlow() {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const step = processSteps[activeStep];
+  const StepIcon = step.icon;
+
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-background">
+    <section className="py-16 lg:py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12 lg:mb-16">
+        {/* Centered Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-xs lg:text-sm font-semibold tracking-widest text-primary mb-4 uppercase"
+            className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 uppercase"
           >
-            How We Work
+            PROJECT METHODOLOGY
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4"
           >
-            Our Service Delivery Process
+            Our Service <span className="font-accent italic text-primary">Delivery Process</span>
           </motion.h2>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "100px" }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="h-1 bg-primary mx-auto mb-6"
-          />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-base lg:text-lg text-foreground/70 max-w-2xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-body text-sm lg:text-base text-muted-foreground leading-relaxed"
           >
-            From initial consultation to final handover, we follow a systematic
-            approach ensuring transparency, quality, and timely delivery.
+            A 4-phase single-source construction methodology engineered for 100% on-time delivery and zero safety incidents.
           </motion.p>
         </div>
 
-        {/* Process Steps */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Connection Line - Desktop Only */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20 -translate-y-1/2" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {processSteps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="relative"
-                >
-                  <div className="bg-white rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-foreground/5 h-full flex flex-col relative z-10">
-                    {/* Number Badge */}
-                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg">
-                      <span className="text-xl font-bold text-primary-foreground">
-                        {step.number}
-                      </span>
-                    </div>
-
-                    {/* Icon */}
-                    <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-5">
-                      <Icon className="w-7 h-7 text-primary" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-3">
-                      {step.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm lg:text-base text-foreground/70 leading-relaxed flex-grow">
-                      {step.description}
-                    </p>
+        {/* 4 Interactive Phase Nodes Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
+          {processSteps.map((item, idx) => {
+            const Icon = item.icon;
+            const isActive = activeStep === idx;
+            return (
+              <motion.button
+                key={item.id}
+                onClick={() => setActiveStep(idx)}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={`p-6 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between relative group ${
+                  isActive
+                    ? "bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-102"
+                    : "bg-card text-card-foreground border-border hover:border-primary/40"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div
+                    className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+                      isActive ? "bg-white/20 text-white" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white"
+                    }`}
+                  >
+                    <Icon className="w-6 h-6" />
                   </div>
+                  <span className={`font-heading text-xs font-extrabold uppercase ${isActive ? "text-white/80" : "text-primary"}`}>
+                    PHASE {item.number}
+                  </span>
+                </div>
 
-                  {/* Arrow - Desktop Only */}
-                  {index < processSteps.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20">
-                      <ArrowRight className="w-6 h-6 text-primary" />
-                    </div>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
+                <div>
+                  <h3 className={`font-heading text-base sm:text-lg font-bold mb-1 ${isActive ? "text-white" : "text-card-foreground"}`}>
+                    {item.title}
+                  </h3>
+                  <p className={`font-body text-xs line-clamp-2 ${isActive ? "text-white/85" : "text-muted-foreground"}`}>
+                    {item.subtitle}
+                  </p>
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center mt-12 lg:mt-16"
-        >
-          <p className="text-sm lg:text-base text-foreground/70 mb-4">
-            Average project completion time: <span className="font-bold text-primary">6-12 months</span> depending on scope and complexity
-          </p>
-        </motion.div>
+        {/* Active Phase Details Showcase Box */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={step.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="bg-card rounded-2xl p-6 sm:p-8 lg:p-10 border border-border shadow-lg space-y-6 max-w-5xl mx-auto"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                  <StepIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="font-accent text-xs font-semibold text-primary uppercase tracking-wider">
+                    PHASE {step.number} EXECUTION SCOPE
+                  </span>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-card-foreground">
+                    {step.title}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="px-3.5 py-1.5 bg-primary/10 rounded-full border border-primary/20 text-xs font-heading font-semibold text-primary uppercase">
+                  Duration: {step.duration}
+                </div>
+                <div className="px-3.5 py-1.5 bg-muted rounded-full text-xs font-heading font-semibold text-muted-foreground uppercase">
+                  {step.standards}
+                </div>
+              </div>
+            </div>
+
+            <p className="font-body text-sm sm:text-base text-muted-foreground leading-relaxed">
+              {step.description}
+            </p>
+
+            {/* Deliverables Checklist Grid */}
+            <div className="space-y-3 pt-2">
+              <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-card-foreground">
+                Key Engineering Deliverables & Milestones:
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {step.deliverables.map((deliv, dIdx) => (
+                  <div key={dIdx} className="flex items-center gap-3 bg-muted/40 p-3 rounded-xl border border-border">
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                    <span className="font-body text-xs font-semibold text-card-foreground">{deliv}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

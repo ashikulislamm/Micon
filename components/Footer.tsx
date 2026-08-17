@@ -28,7 +28,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-background border-t border-foreground/10">
+    <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-8">
@@ -43,7 +43,7 @@ export default function Footer() {
                 />
               </div>
             </Link>
-            <p className="text-sm text-foreground/60 leading-relaxed max-w-sm">
+            <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-sm">
               Leading metal infrastructures and heavy industrial construction
               across Bangladesh.
             </p>
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-base font-semibold text-foreground mb-4">
+            <h3 className="font-heading text-base font-semibold text-foreground mb-4">
               Quick Links
             </h3>
             <ul className="space-y-3">
@@ -59,7 +59,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-foreground/60 hover:text-primary transition-colors"
+                    className="font-body text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-base font-semibold text-foreground mb-4">
+            <h3 className="font-heading text-base font-semibold text-foreground mb-4">
               Legal
             </h3>
             <ul className="space-y-3">
@@ -78,7 +78,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-foreground/60 hover:text-primary transition-colors"
+                    className="font-body text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Social Media */}
           <div>
-            <h3 className="text-base font-semibold text-foreground mb-4">
+            <h3 className="font-heading text-base font-semibold text-foreground mb-4">
               Follow Us
             </h3>
             <div className="flex gap-3">
@@ -100,9 +100,9 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-full bg-foreground/5 hover:bg-primary/10 border border-foreground/10 hover:border-primary/30 flex items-center justify-center transition-all group"
+                    className="w-10 h-10 rounded-full bg-muted/60 hover:bg-primary/10 border border-border hover:border-primary/30 flex items-center justify-center transition-all group"
                   >
-                    <Icon className="w-5 h-5 text-foreground/60 group-hover:text-primary transition-colors" />
+                    <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </a>
                 );
               })}
@@ -111,8 +111,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="pt-8 border-t border-foreground/10">
-          <p className="text-xs text-center text-foreground/50">
+        <div className="pt-8 border-t border-border">
+          <p className="font-body text-xs text-center text-muted-foreground">
             © {currentYear} Metal Infrastructures and Constructions Ltd (MICON).
             All Rights Reserved.
           </p>

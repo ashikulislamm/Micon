@@ -51,14 +51,14 @@ function StatItem({ end, suffix, label, subtitle, delay }: StatItemProps) {
       className="text-center px-6 lg:px-8"
     >
       <div className="mb-3 lg:mb-4">
-        <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary">
+        <h3 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-primary tracking-tight">
           <Counter end={end} suffix={suffix} delay={(delay || 0) * 1000} />
         </h3>
       </div>
-      <p className="text-base lg:text-lg font-bold text-foreground mb-2">
+      <p className="font-heading text-base lg:text-lg font-bold text-foreground mb-2">
         {label}
       </p>
-      <p className="text-xs lg:text-sm text-foreground/60">
+      <p className="font-body text-xs lg:text-sm text-muted-foreground">
         {subtitle}
       </p>
     </motion.div>
@@ -88,9 +88,9 @@ export default function Stats() {
   ];
 
   return (
-    <section className="py-16 lg:py-20 bg-background">
+    <section className="py-16 lg:py-20 bg-muted/30 border-y border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 md:divide-y-0 md:divide-x divide-foreground/10 divide gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:divide-y-0 md:divide-x divide-border gap-6 lg:gap-8">
           {stats.map((stat, index) => (
             <StatItem
               key={stat.label}

@@ -83,9 +83,9 @@ export default function Navbar() {
                     className="relative group"
                   >
                     <span
-                      className={`text-sm font-medium transition-colors ${
+                      className={`font-body text-sm font-medium transition-colors ${
                         isActive
-                          ? "text-primary"
+                          ? "text-primary font-semibold"
                           : "text-foreground/80 hover:text-primary"
                       }`}
                     >
@@ -109,7 +109,7 @@ export default function Navbar() {
             {/* CTA Button - Desktop */}
             <div className="hidden lg:block">
               <Link href="/quote">
-                <Button size="lg" className="font-semibold">
+                <Button size="lg" className="font-heading text-xs tracking-wider uppercase font-semibold">
                   Get a Quote
                 </Button>
               </Link>

@@ -1,13 +1,26 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { JetBrains_Mono, Sora, Fraunces } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-heading",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const sora = Sora({
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  variable: "--font-accent",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -104,7 +117,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body
-        className={`${montserrat.className} antialiased`}
+        className={`${sora.variable} ${jetbrainsMono.variable} ${fraunces.variable} font-body antialiased`}
       >
         <Navbar />
         {children}

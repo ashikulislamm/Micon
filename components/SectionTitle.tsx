@@ -33,32 +33,32 @@ export default function SectionTitle({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={cn("mb-12 lg:mb-16", alignmentClasses[alignment], className)}
+      className={cn("mb-10 lg:mb-14", alignmentClasses[alignment], className)}
     >
       {label && (
-        <div className="mb-4">
-          <span className="text-primary text-sm lg:text-base font-semibold tracking-wider uppercase">
+        <div className="mb-3 md:mb-4">
+          <span className="font-accent text-primary text-sm lg:text-base font-semibold tracking-wider uppercase">
             {label}
           </span>
         </div>
       )}
       
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+      <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
         {title}
         {subtitle && (
           <>
             <br />
-            <span className="text-primary">{subtitle}</span>
+            <span className="font-accent italic text-primary">{subtitle}</span>
           </>
         )}
       </h2>
       
       {showUnderline && (
-        <div className={cn("w-20 h-1 bg-primary mt-4", alignment === "center" && "mx-auto")} />
+        <div className={cn("w-20 h-1 bg-primary mt-4 rounded-full", alignment === "center" && "mx-auto")} />
       )}
       
       {description && (
-        <p className="text-base sm:text-lg text-muted-foreground mt-6 max-w-3xl leading-relaxed">
+        <p className="font-body text-base sm:text-lg text-muted-foreground mt-4 md:mt-6 max-w-3xl leading-relaxed">
           {description}
         </p>
       )}
