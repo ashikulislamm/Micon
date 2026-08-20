@@ -46,7 +46,7 @@ export default function Hero() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
               <span className="font-heading text-xs sm:text-sm font-semibold tracking-wider text-white uppercase">
-                Established Since 1995
+                Established Since 2018
               </span>
             </div>
           </motion.div>
