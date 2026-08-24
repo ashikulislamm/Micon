@@ -1,68 +1,123 @@
+import { COMPANY_CONTACT } from "@/lib/data/company";
+import { SERVICES_DATA } from "@/lib/data/services";
+
 export default function JsonLd() {
+  const baseUrl = "https://www.micon.com.bd";
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://www.micon.com.bd/#organization",
+        "@id": `${baseUrl}/#organization`,
         name: "MICON",
-        legalName: "MICON Engineering Solutions",
-        url: "https://www.micon.com.bd",
+        legalName: "Metal Infrastructures and Constructions Ltd",
+        url: baseUrl,
         logo: {
           "@type": "ImageObject",
-          url: "https://www.micon.com.bd/Logo.png",
+          url: `${baseUrl}/Logo.png`,
           width: 250,
           height: 60,
         },
         description:
-          "Leading construction and engineering company in Bangladesh specializing in PEB Steel Buildings, RCC Structures, Treatment Plants, and Industrial Construction.",
+          "Premier construction and engineering company in Bangladesh specializing in Pre-Engineered Steel Buildings (PEB), Turnkey RCC Structures, ETP/WTP Facilities, and BIM Technology.",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Ka-6/A, 3 Floor, Jagannathpur, Vatara",
+          streetAddress: COMPANY_CONTACT.headOffice.addressLines.join(", "),
           addressLocality: "Dhaka",
           postalCode: "1229",
           addressCountry: "BD",
         },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 23.811876,
+          longitude: 90.423384,
+        },
         contactPoint: [
           {
             "@type": "ContactPoint",
-            telephone: "+880-1812-345-678",
+            telephone: COMPANY_CONTACT.hotline,
             contactType: "customer service",
-            email: "info@micon.com.bd",
+            email: COMPANY_CONTACT.email,
             areaServed: "BD",
             availableLanguage: ["English", "Bengali"],
           },
+          {
+            "@type": "ContactPoint",
+            telephone: COMPANY_CONTACT.emergencyPhone,
+            contactType: "emergency support",
+            email: COMPANY_CONTACT.email,
+            areaServed: "BD",
+          },
         ],
         sameAs: [
-          "https://www.facebook.com/micon",
-          "https://www.linkedin.com/company/micon",
-          "https://twitter.com/micon",
-        ],
+          COMPANY_CONTACT.social.linkedin,
+          COMPANY_CONTACT.social.facebook,
+          COMPANY_CONTACT.social.youtube || "",
+        ].filter(Boolean),
         foundingDate: "2017",
         numberOfEmployees: {
           "@type": "QuantitativeValue",
-          value: 30,
+          value: 50,
         },
-        award: ["ISO 9001:2015 Certification", "LEED Certified Projects"],
+        award: [
+          "ISO 9001:2015 Quality Management System Certification",
+          "BNBC 2020 Structural Safety Compliance",
+          "LEED Green Building Certified Contractor",
+        ],
       },
       {
         "@type": "WebSite",
-        "@id": "https://www.micon.com.bd/#website",
-        url: "https://www.micon.com.bd",
-        name: "MICON - Construction & Engineering Solutions",
+        "@id": `${baseUrl}/#website`,
+        url: baseUrl,
+        name: "MICON - Leading Construction & Engineering Solutions",
         description:
-          "Leading construction company in Bangladesh offering comprehensive engineering solutions",
+          "Premier construction company in Bangladesh delivering PEB steel buildings, RCC structures, and environmental treatment plants.",
         publisher: {
-          "@id": "https://www.micon.com.bd/#organization",
+          "@id": `${baseUrl}/#organization`,
         },
         inLanguage: "en-US",
       },
       {
+        "@type": "LocalBusiness",
+        "@id": `${baseUrl}/#localbusiness`,
+        name: "MICON Engineering Solutions",
+        image: `${baseUrl}/Logo.png`,
+        telephone: COMPANY_CONTACT.hotline,
+        email: COMPANY_CONTACT.email,
+        priceRange: "$$$$",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: COMPANY_CONTACT.headOffice.addressLines.join(", "),
+          addressLocality: "Dhaka",
+          postalCode: "1229",
+          addressCountry: "BD",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 23.811876,
+          longitude: 90.423384,
+        },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+            opens: "09:00",
+            closes: "19:00",
+          },
+        ],
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "4.9",
+          reviewCount: "120",
+        },
+      },
+      {
         "@type": "Service",
-        "@id": "https://www.micon.com.bd/#service",
-        serviceType: "Construction and Engineering Services",
+        "@id": `${baseUrl}/#services`,
+        serviceType: "Industrial Construction & Structural Engineering",
         provider: {
-          "@id": "https://www.micon.com.bd/#organization",
+          "@id": `${baseUrl}/#organization`,
         },
         areaServed: {
           "@type": "Country",
@@ -70,126 +125,51 @@ export default function JsonLd() {
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Construction Services",
-          itemListElement: [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Design-Build Construction of Pre-Engineered Steel Buildings",
-                description:
-                  "Complete design-build PEB solutions for industrial facilities",
-              },
+          name: "MICON Engineering Services",
+          itemListElement: SERVICES_DATA.map((service) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: service.title,
+              description: service.shortDescription,
+              url: `${baseUrl}/services/${service.slug}`,
             },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Turnkey Construction of RCC and Steel Structures",
-                description:
-                  "Comprehensive turnkey construction combining RCC and steel systems",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Construction of ETP, WTP, STP, and RMS Rooms",
-                description: "Environmental treatment plant construction services",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Boundary Wall Construction",
-                description:
-                  "Industrial perimeter security and boundary wall solutions",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Civil and Steel Structure Retrofitting Works",
-                description: "Structural rehabilitation and strengthening services",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Industrial Utility Infrastructure Construction",
-                description: "Complete utility infrastructure development services",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Implementation of BIM, Modular Construction, and Automation",
-                description: "Advanced construction technology implementation",
-              },
-            },
-          ],
-        },
-      },
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://www.micon.com.bd/#localbusiness",
-        name: "MICON",
-        image: "https://www.micon.com.bd/Logo.png",
-        telephone: "+880-1812-345-678",
-        email: "info@micon.com.bd",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Ka-6/A, 3 Floor, Jagannathpur, Vatara",
-          addressLocality: "Dhaka",
-          postalCode: "1229",
-          addressCountry: "BD",
-        },
-        priceRange: "$$$$",
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
-            opens: "09:00",
-            closes: "18:00",
-          },
-        ],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          reviewCount: "100",
+          })),
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://www.micon.com.bd/#breadcrumb",
+        "@id": `${baseUrl}/#breadcrumb`,
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://www.micon.com.bd/",
+            item: `${baseUrl}/`,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "About",
-            item: "https://www.micon.com.bd/about",
+            item: `${baseUrl}/about`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Services",
-            item: "https://www.micon.com.bd/services",
+            item: `${baseUrl}/services`,
           },
           {
             "@type": "ListItem",
             position: 4,
+            name: "Portfolio Projects",
+            item: `${baseUrl}/projects`,
+          },
+          {
+            "@type": "ListItem",
+            position: 5,
             name: "Contact",
-            item: "https://www.micon.com.bd/contact",
+            item: `${baseUrl}/contact`,
           },
         ],
       },

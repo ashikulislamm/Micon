@@ -10,24 +10,40 @@ import CTA from "@/sections/home/CTA";
 import Partners from "@/sections/home/Partners";
 
 export const metadata: Metadata = {
-  title: "Home - Leading Construction & Engineering Solutions in Bangladesh",
+  title: "MICON - Leading Construction & Engineering Company in Bangladesh",
   description:
-    "MICON is Bangladesh's premier construction company specializing in PEB Steel Buildings, Turnkey RCC & Steel Structures, Treatment Plants, and advanced BIM Technology. ISO 9001:2015 certified with 100+ successful projects.",
+    "MICON (Metal Infrastructures & Constructions Ltd) is Bangladesh's premier ISO 9001:2015 certified industrial construction company. Specializing in PEB Steel Buildings, Turnkey RCC Civil Structures, ETP/WTP Facilities, Retrofitting, and BIM 3D Modeling across Dhaka, Chittagong, Gazipur, Narayanganj & SEZs.",
   keywords: [
     "construction company Bangladesh",
-    "best construction company",
-    "industrial construction",
-    "PEB steel buildings Bangladesh",
-    "factory construction",
-    "warehouse construction",
-    "engineering solutions",
+    "PEB steel building contractor Bangladesh",
+    "pre engineered building Dhaka",
+    "turnkey industrial construction Bangladesh",
+    "ETP WTP plant construction company",
+    "factory construction contractor Gazipur",
+    "warehouse construction Chittagong",
+    "LEED green building contractor",
+    "structural retrofitting Accord RSC audit Bangladesh",
+    "BIM 3D structural modeling Bangladesh",
+    "precast boundary wall construction",
+    "ISO certified construction company Bangladesh",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
+    title: "MICON - Leading Construction & Engineering Solutions in Bangladesh",
+    description:
+      "ISO 9001:2015 certified engineering firm delivering 60m+ clear span PEB steel buildings, turnkey RCC structures, treatment plants, and BIM 3D modeling across Bangladesh.",
+    url: "https://www.micon.com.bd",
+    siteName: "MICON",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "MICON - Leading Construction & Engineering Solutions",
     description:
-      "Transform your industrial vision into reality with Bangladesh's trusted construction partner.",
-    url: "https://www.micon.com.bd",
-    type: "website",
+      "Bangladesh's trusted construction partner for PEB Steel Buildings, Turnkey RCC, ETP/WTP Plants, and BIM Technology.",
   },
 };
 

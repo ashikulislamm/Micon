@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import { ToastProvider } from "@/components/ui/toast";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-heading",
@@ -119,9 +120,11 @@ export default function RootLayout({
       <body
         className={`${sora.variable} ${jetbrainsMono.variable} ${fraunces.variable} font-body antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <ToastProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   );

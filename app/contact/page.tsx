@@ -1,98 +1,101 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Clock, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { Accordion } from "@/components/ui/accordion";
+import { useToast } from "@/components/ui/toast";
+import PageHero from "@/components/PageHero";
+import SectionTitle from "@/components/SectionTitle";
+import { COMPANY_CONTACT, FAQ_ITEMS } from "@/lib/data/company";
 import Link from "next/link";
-import Image from "next/image";
 import BG from "@/public/Contact-bg.png";
+
 export default function ContactPage() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const contactInfo = [
+  const contactInfoCards = [
     {
       icon: MapPin,
       title: "Head Office",
       details: [
-        "Ka-6/A, 3 Floor, Jagannathpur",
-        "Vatara , Dhaka - 1229, Bangladesh",
-        "+880 1812 345 678",
-        "info@micon.com.bd",
+        COMPANY_CONTACT.headOffice.addressLines[0],
+        COMPANY_CONTACT.headOffice.addressLines[1],
+        COMPANY_CONTACT.headOffice.phone,
+        COMPANY_CONTACT.headOffice.email,
       ],
     },
     {
       icon: Phone,
       title: "Contact Info",
       details: [
-        "Office: +880 2 8956 234",
-        "Mobile: +880 1712 345 678",
-        "Hotline: +880 1812 345 678",
+        `Office: ${COMPANY_CONTACT.officePhone}`,
+        `Mobile: ${COMPANY_CONTACT.mobile}`,
+        `Hotline: ${COMPANY_CONTACT.hotline}`,
       ],
     },
     {
       icon: Clock,
       title: "Business Hours",
-      details: ["Sunday - Thursday", "9:00 AM - 7:00 PM", "Friday - Saturday : Closed"],
+      details: [
+        COMPANY_CONTACT.businessHours.days,
+        COMPANY_CONTACT.businessHours.hours,
+        COMPANY_CONTACT.businessHours.closedDays || "",
+      ],
     },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    // Handle form submission
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      toast({
+        type: "success",
+        title: "Inquiry Sent Successfully!",
+        description: `Thank you ${formData.fullName}, our engineering team will get back to you within 24 hours.`,
+      });
+      setFormData({ fullName: "", email: "", subject: "", message: "" });
+    }, 800);
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 bg-foreground overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
-            style={{
-              backgroundImage: `url(${BG.src})`,
-            }}
-          />
-        </div>
+      {/* Symmetrical Dark Page Hero */}
+      <PageHero
+        badge="GET IN TOUCH"
+        title="Connect with"
+        highlight="MICON Engineering"
+        description="Building engineering excellence through vision and precision. Reach out to our structural experts to discuss your upcoming project."
+        bgImage={BG.src}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact Us" },
+        ]}
+      />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 lg:mb-6">
-              Connect with MICON
-            </h1>
-            <p className="text-base lg:text-lg text-white/80 leading-relaxed">
-              Building excellence through vision. We reflect a profound
-              commitment to innovation, quality, and integrity. Let&#39;s create
-              the next landmark together.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact Cards */}
+      {/* Contact Cards Section */}
       <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 -mt-20 lg:-mt-24 relative z-20">
-            {contactInfo.map((item, index) => {
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 -mt-40 lg:-mt-48 relative z-20">
+            {contactInfoCards.map((item, index) => {
               const Icon = item.icon;
               return (
                 <motion.div
@@ -100,19 +103,19 @@ export default function ContactPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-lg p-6 lg:p-8 shadow-xl border border-foreground/5"
+                  className="bg-card rounded-xl p-6 lg:p-8 shadow-xl border border-border"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-4">
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-3">
                     {item.title}
                   </h3>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     {item.details.map((detail, idx) => (
                       <p
                         key={idx}
-                        className="text-sm text-foreground/70 leading-relaxed"
+                        className="font-body text-xs sm:text-sm text-muted-foreground leading-relaxed"
                       >
                         {detail}
                       </p>
@@ -125,18 +128,18 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-12 lg:py-16">
+      {/* Embedded Google Map Section */}
+      <section className="py-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative w-full h-80 lg:h-96 rounded-lg overflow-hidden shadow-xl"
+            className="relative w-full h-80 lg:h-96 rounded-2xl overflow-hidden shadow-xl border border-border"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228.1368146757171!2d90.42338488590124!3d23.811876131183094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c75a1d752763%3A0xdf5f392866a564c8!2sMetal%20Infrastructures%20and%20Constructions%20Ltd!5e0!3m2!1sen!2sbd!4v1770461386578!5m2!1sen!2sbd"
+              src={COMPANY_CONTACT.embedMapUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -145,14 +148,13 @@ export default function ContactPage() {
               referrerPolicy="no-referrer-when-downgrade"
               title="MICON Office Location"
             />
-            {/* View on Google Maps overlay button */}
             <div className="absolute bottom-4 right-4 z-10">
               <Link
-                href="https://maps.app.goo.gl/pSfnGNKccW2VCfhQ8"
+                href={COMPANY_CONTACT.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="default" size="sm" className="shadow-lg">
+                <Button size="sm" className="shadow-lg font-heading text-xs uppercase">
                   <MapPin className="w-4 h-4 mr-2" />
                   View on Google Maps
                 </Button>
@@ -162,44 +164,43 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Social Media */}
-      <section className="py-12 lg:py-20 bg-white">
+      {/* Form & Social Contact Section */}
+      <section className="py-12 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Form */}
+            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
+              className="bg-card p-6 sm:p-8 rounded-2xl border border-border shadow-xs"
             >
-              <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-3">
+              <h2 className="font-heading text-2xl lg:text-3xl font-bold text-foreground mb-3">
                 Send us a Message
               </h2>
-              <p className="text-sm text-foreground/60 mb-8">
-                Have a specific project idea? Let us easily understand your
-                message! Fill out the form below and our 24/7 Always on hand to
-                support. We&#39;re with 24 hours.
+              <p className="font-body text-xs sm:text-sm text-muted-foreground mb-8 leading-relaxed">
+                Have a specific project inquiry? Fill out the form below and our engineering team will respond within 24 hours.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">
+                  <label className="block font-heading text-xs font-semibold text-foreground mb-2 uppercase tracking-wider">
                     Full Name *
                   </label>
                   <Input
                     type="text"
                     name="fullName"
-                    placeholder="John Doe"
+                    placeholder="Engr. John Doe"
                     value={formData.fullName}
                     onChange={handleChange}
                     required
-                    className="w-full"
+                    className="w-full font-body text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">
+                  <label className="block font-heading text-xs font-semibold text-foreground mb-2 uppercase tracking-wider">
                     Email Address *
                   </label>
                   <Input
@@ -209,48 +210,53 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full"
+                    className="w-full font-body text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">
+                  <label className="block font-heading text-xs font-semibold text-foreground mb-2 uppercase tracking-wider">
                     Subject *
                   </label>
                   <Input
                     type="text"
                     name="subject"
-                    placeholder="Project Inquiry - Industrial Warehouse"
+                    placeholder="PEB Steel Factory Inquiry"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full"
+                    className="w-full font-body text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">
+                  <label className="block font-heading text-xs font-semibold text-foreground mb-2 uppercase tracking-wider">
                     Message *
                   </label>
                   <Textarea
                     name="message"
-                    placeholder="Describe your project requirements..."
+                    placeholder="Describe your project specifications, area requirements, location, and timeline..."
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="w-full font-body text-sm"
                   />
                 </div>
 
-                <Button type="submit" size="lg" className="w-full sm:w-auto">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto font-heading text-xs uppercase tracking-wider font-semibold"
+                >
                   <Send className="w-4 h-4 mr-2" />
-                  SEND INQUIRY
+                  {isSubmitting ? "Sending Inquiry..." : "Send Inquiry"}
                 </Button>
               </form>
             </motion.div>
 
-            {/* Social Media & Emergency Contact */}
+            {/* Social & Emergency Contact */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -258,20 +264,19 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              {/* Social Media */}
               <div>
-                <h3 className="text-xl font-bold text-foreground mb-6">
+                <h3 className="font-heading text-xl font-bold text-foreground mb-4">
                   Connect via Social Media
                 </h3>
                 <div className="space-y-4">
                   <Link
-                    href="https://linkedin.com"
+                    href={COMPANY_CONTACT.social.linkedin}
                     target="_blank"
-                    className="flex items-start gap-4 p-4 rounded-lg border border-foreground/10 hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                    className="flex items-start gap-4 p-4 rounded-xl border border-border hover:border-primary/40 hover:bg-primary/5 transition-all group bg-card"
                   >
-                    <div className="w-12 h-12 bg-[#0A66C2] rounded flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-[#0A66C2] rounded-lg flex items-center justify-center shrink-0">
                       <svg
-                        className="w-6 h-6 text-white"
+                        className="w-5 h-5 text-white"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -279,23 +284,23 @@ export default function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">
-                        LinkedIn
+                      <h4 className="font-heading text-sm font-semibold text-foreground mb-0.5">
+                        LinkedIn Official Page
                       </h4>
-                      <p className="text-sm text-foreground/60">
-                        Stay updated with industry insights
+                      <p className="font-body text-xs text-muted-foreground">
+                        Stay updated with engineering insights & corporate news
                       </p>
                     </div>
                   </Link>
 
                   <Link
-                    href="https://facebook.com"
+                    href={COMPANY_CONTACT.social.facebook}
                     target="_blank"
-                    className="flex items-start gap-4 p-4 rounded-lg border border-foreground/10 hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                    className="flex items-start gap-4 p-4 rounded-xl border border-border hover:border-primary/40 hover:bg-primary/5 transition-all group bg-card"
                   >
-                    <div className="w-12 h-12 bg-[#1877F2] rounded flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-[#1877F2] rounded-lg flex items-center justify-center shrink-0">
                       <svg
-                        className="w-6 h-6 text-white"
+                        className="w-5 h-5 text-white"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -303,32 +308,31 @@ export default function ContactPage() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">
-                        Facebook
+                      <h4 className="font-heading text-sm font-semibold text-foreground mb-0.5">
+                        Facebook Community
                       </h4>
-                      <p className="text-sm text-foreground/60">
-                        Follow us for latest Company news
+                      <p className="font-body text-xs text-muted-foreground">
+                        Follow site progress & project handovers
                       </p>
                     </div>
                   </Link>
                 </div>
               </div>
 
-              {/* Emergency Contact */}
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                <h4 className="text-sm font-semibold text-foreground/70 mb-2">
-                  Emergency Support?
+              {/* Emergency Technical Support */}
+              <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 space-y-3">
+                <h4 className="font-heading text-sm font-bold text-foreground uppercase tracking-wider">
+                  Emergency Technical Support?
                 </h4>
-                <p className="text-sm text-foreground/60 mb-4">
-                  Need immediate technical assistance with structural issue?
-                  Call us 24/7.
+                <p className="font-body text-xs text-muted-foreground leading-relaxed">
+                  Require immediate technical assistance with structural issue or site emergency? Call our hotline 24/7.
                 </p>
                 <a
-                  href="tel:+8801812345678"
-                  className="inline-flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors"
+                  href={`tel:${COMPANY_CONTACT.emergencyPhone}`}
+                  className="inline-flex items-center gap-2 font-heading text-lg font-bold text-primary hover:text-primary/80 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  +880 181 234 5678
+                  {COMPANY_CONTACT.emergencyPhone}
                 </a>
               </div>
             </motion.div>
@@ -336,82 +340,19 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 lg:py-20 bg-background">
+      {/* FAQ Accordion Section */}
+      <section className="py-16 lg:py-20 bg-muted/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-sm lg:text-base text-foreground/60">
-              Get quick answers to common inquiries about our industrial
-              construction processes, safety standards, and project management.
-            </p>
-          </motion.div>
+          <SectionTitle
+            label="FREQUENTLY ASKED QUESTIONS"
+            title="Questions About Our"
+            subtitle="Construction Process?"
+            description="Get quick answers to common inquiries regarding timelines, LEED compliance, safety standards, and project estimates."
+            alignment="center"
+          />
 
-          <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              {
-                question: "What is the average timeline for a PEB project?",
-                answer:
-                  "Pre-Engineered Building projects typically take 4-6 months from design approval to completion, depending on the size and complexity.",
-              },
-              {
-                question: "Are MICON buildings LEED certified?",
-                answer:
-                  "Yes, we specialize in LEED-certified construction and can help you achieve various certification levels based on your sustainability goals.",
-              },
-              {
-                question: "Do you provide turnkey RCC solutions?",
-                answer:
-                  "Absolutely. We offer complete turnkey RCC construction services from foundation to finishing, including all MEP systems.",
-              },
-              {
-                question:
-                  "How do you handle project safety and quality control?",
-                answer:
-                  "We maintain strict ISO 9001:2015 quality standards and have comprehensive safety protocols with regular third-party audits.",
-              },
-            ].map((faq, index) => (
-              <motion.details
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group bg-white rounded-lg border border-foreground/10 overflow-hidden"
-              >
-                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-foreground/5 transition-colors">
-                  <span className="font-semibold text-foreground">
-                    {faq.question}
-                  </span>
-                  <svg
-                    className="w-5 h-5 text-primary transition-transform group-open:rotate-180"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div className="px-6 pb-6">
-                  <p className="text-sm text-foreground/70 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              </motion.details>
-            ))}
+          <div className="max-w-3xl mx-auto">
+            <Accordion items={FAQ_ITEMS} />
           </div>
         </div>
       </section>

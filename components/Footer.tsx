@@ -116,6 +116,9 @@ export default function Footer() {
             © {currentYear} Metal Infrastructures and Constructions Ltd (MICON).
             All Rights Reserved.
           </p>
+          <p className="font-body text-xs text-center text-muted-foreground">
+            Powered By  <Link href="https://kodesec.com" className="text-[#36E27B] font-semibold">Kodesec Solutions</Link>
+          </p>
         </div>
       </div>
     </footer>

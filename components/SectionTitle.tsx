@@ -8,7 +8,7 @@ interface SectionTitleProps {
   title: string;
   subtitle?: string;
   description?: string;
-  alignment?: "left" | "center";
+  alignment?: "left" | "center" | "right";
   showUnderline?: boolean;
   className?: string;
 }
@@ -25,6 +25,7 @@ export default function SectionTitle({
   const alignmentClasses = {
     left: "text-left",
     center: "text-center mx-auto",
+    right: "text-right ml-auto",
   };
 
   return (
@@ -36,29 +37,40 @@ export default function SectionTitle({
       className={cn("mb-10 lg:mb-14", alignmentClasses[alignment], className)}
     >
       {label && (
-        <div className="mb-3 md:mb-4">
-          <span className="font-accent text-primary text-sm lg:text-base font-semibold tracking-wider uppercase">
+        <div className="mb-3">
+          <span className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary uppercase">
             {label}
           </span>
         </div>
       )}
-      
+
       <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
         {title}
         {subtitle && (
           <>
-            <br />
+            {" "}
             <span className="font-accent italic text-primary">{subtitle}</span>
           </>
         )}
       </h2>
-      
+
       {showUnderline && (
-        <div className={cn("w-20 h-1 bg-primary mt-4 rounded-full", alignment === "center" && "mx-auto")} />
+        <div
+          className={cn(
+            "w-20 h-1 bg-primary mt-4 rounded-full",
+            alignment === "center" && "mx-auto",
+            alignment === "right" && "ml-auto"
+          )}
+        />
       )}
-      
+
       {description && (
-        <p className="font-body text-base sm:text-lg text-muted-foreground mt-4 md:mt-6 max-w-3xl leading-relaxed">
+        <p
+          className={cn(
+            "font-body text-sm sm:text-base lg:text-lg text-muted-foreground mt-4 md:mt-6 leading-relaxed",
+            alignment === "center" ? "max-w-3xl mx-auto" : "max-w-3xl"
+          )}
+        >
           {description}
         </p>
       )}

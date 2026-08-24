@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import PageHero from "@/components/PageHero";
 import ContactSidebar from "@/sections/quote/ContactSidebar";
 import QuoteForm from "@/sections/quote/QuoteForm";
 
@@ -29,21 +30,22 @@ export const metadata: Metadata = {
 
 export default function QuotePage() {
   return (
-    <div className="min-h-screen bg-background py-24 lg:py-32">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-12 lg:mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Get a Quote
-          </h1>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl">
-            Partner with MICON for your next industrial infrastructure project. Our team of
-            experts is ready to provide you with a comprehensive technical and financial
-            proposal.
-          </p>
-        </div>
+    <div className="min-h-screen bg-background">
+      {/* Symmetrical Dark Page Hero */}
+      <PageHero
+        badge="PROJECT ESTIMATION"
+        title="Get a Customized"
+        highlight="Technical Proposal"
+        description="Partner with MICON for your next industrial infrastructure project. Our directors will provide a comprehensive technical and financial proposal."
+        bgImage="/RCC/RCC_1.jpg"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Get a Quote" },
+        ]}
+      />
 
-        {/* Main Content */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Contact Sidebar */}
           <div className="lg:col-span-1">

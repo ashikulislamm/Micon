@@ -79,7 +79,7 @@ export default function MachineryFleet() {
 
         <div className="mt-10 text-center">
           <Link href="/about">
-            <Button variant="outline" className="font-heading text-xs uppercase tracking-wider h-11 px-6 border-primary/50 text-primary hover:bg-primary hover:text-white">
+            <Button variant="outline" className="font-heading text-xs uppercase tracking-wider h-11 px-6 border-primary/50 text-primary hover:bg-primary hover:text-white rounded-full">
               View Complete Machinery & Equipment Fleet List
             </Button>
           </Link>

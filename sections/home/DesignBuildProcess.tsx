@@ -106,7 +106,7 @@ export default function DesignBuildProcess() {
               <button
                 key={step.id}
                 onClick={() => setActiveStep(idx)}
-                className={`flex items-center gap-3 px-5 py-3 rounded-xl border transition-all duration-300 shrink-0 font-heading text-sm ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-full border transition-all duration-300 shrink-0 font-heading text-sm  ${
                   isActive
                     ? "bg-primary text-white border-primary shadow-md scale-105"
                     : "bg-card text-muted-foreground border-border hover:border-primary/50 hover:text-foreground"

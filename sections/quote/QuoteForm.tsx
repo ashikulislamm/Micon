@@ -16,6 +16,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+import { useToast } from "@/components/ui/toast";
+
 type ProjectType = "peb" | "rcc" | "specialized" | "green" | null;
 
 interface FormData {
@@ -36,7 +38,9 @@ interface FormData {
 }
 
 export default function QuoteForm() {
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     companyName: "",
@@ -100,8 +104,12 @@ export default function QuoteForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Handle form submission
+    setIsSubmitted(true);
+    toast({
+      type: "success",
+      title: "Proposal Request Received!",
+      description: `Thank you ${formData.fullName}, your technical quote request for ${formData.companyName || "your project"} has been received. Our directors will review and contact you shortly.`,
+    });
   };
 
   const isStep1Valid = () => {
