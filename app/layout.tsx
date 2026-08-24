@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { ToastProvider } from "@/components/ui/toast";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-heading",
@@ -124,6 +126,8 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <Analytics />
+          <SpeedInsights />
         </ToastProvider>
       </body>
     </html>
