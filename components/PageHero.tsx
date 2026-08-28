@@ -48,7 +48,7 @@ export default function PageHero({
   return (
     <section
       className={cn(
-        "relative h-[660px] sm:h-[660px] lg:h-[700px] min-h-[720px] sm:min-h-[760px] lg:min-h-[800px] w-full overflow-hidden bg-foreground flex items-center justify-center",
+        "relative min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] h-auto w-full overflow-hidden bg-foreground flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-20 sm:pb-24 lg:pb-28",
         className
       )}
     >
@@ -73,45 +73,16 @@ export default function PageHero({
       </div>
 
       {/* Main Content Container (Centered & Height Constrained) */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 w-full text-center flex flex-col items-center justify-center h-full">
-        <div className="max-w-4xl mx-auto mt-16 mb-16 flex flex-col items-center justify-center">
-          {/* Breadcrumbs 
-          {breadcrumbs && breadcrumbs.length > 0 && (
-            <motion.nav
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center justify-center gap-2 mb-6 text-xs font-body text-white/70 uppercase tracking-wider"
-              aria-label="Breadcrumb"
-            >
-              {breadcrumbs.map((crumb, idx) => (
-                <React.Fragment key={idx}>
-                  {crumb.href ? (
-                    <Link
-                      href={crumb.href}
-                      className="hover:text-primary transition-colors flex items-center gap-1"
-                    >
-                      {crumb.label}
-                    </Link>
-                  ) : (
-                    <span className="text-white/90 font-semibold">{crumb.label}</span>
-                  )}
-                  {idx < breadcrumbs.length - 1 && (
-                    <ChevronRight className="w-3.5 h-3.5 text-primary shrink-0" />
-                  )}
-                </React.Fragment>
-              ))}
-            </motion.nav>
-          )}*/}
-
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 w-full text-center flex flex-col items-center justify-center">
+        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">
           {/* Section Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-4 mt-4"
+            className="mb-4"
           >
-            <span className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary uppercase bg-primary/10 px-4 py-2.5 rounded-full border border-primary/30 shadow-xs">
+            <span className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary uppercase bg-primary/10 px-4 py-2 rounded-full border border-primary/30 shadow-xs">
               {badge}
             </span>
           </motion.div>
@@ -123,7 +94,7 @@ export default function PageHero({
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mb-6 text-center"
           >
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-white drop-shadow-sm">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-white drop-shadow-sm">
               {title}
               {highlight && (
                 <>

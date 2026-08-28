@@ -15,7 +15,7 @@ export default function JsonLd() {
         url: baseUrl,
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/Logo.png`,
+          url: `${baseUrl}/Logo_Black.png`,
           width: 250,
           height: 60,
         },
@@ -82,7 +82,7 @@ export default function JsonLd() {
         "@type": "LocalBusiness",
         "@id": `${baseUrl}/#localbusiness`,
         name: "MICON Engineering Solutions",
-        image: `${baseUrl}/Logo.png`,
+        image: `${baseUrl}/Logo_Black.png`,
         telephone: COMPANY_CONTACT.hotline,
         email: COMPANY_CONTACT.email,
         priceRange: "$$$$",

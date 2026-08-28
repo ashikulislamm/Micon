@@ -291,7 +291,7 @@ export default function Machinaries() {
                         >
                           <div className="flex items-center gap-3 flex-1 min-w-0">
                             <div className="w-2 h-2 rounded-full bg-primary/60 group-hover/item:bg-primary group-hover/item:scale-125 transition-all duration-200 flex-shrink-0" />
-                            <p className="text-sm lg:text-base text-foreground font-medium group-hover/item:text-primary transition-colors duration-200">
+                            <p className="text-sm lg:text-base text-foreground font-medium group-hover/item:text-primary transition-colors duration-200 break-words min-w-0 flex-1">
                               {item.name}
                             </p>
                           </div>

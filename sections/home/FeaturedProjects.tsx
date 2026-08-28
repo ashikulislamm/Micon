@@ -59,7 +59,7 @@ export default function FeaturedProjects() {
               className="grid lg:grid-cols-12 items-center"
             >
               {/* Left Image Box */}
-              <div className="lg:col-span-7 relative h-[320px] sm:h-[400px] lg:h-[450px] overflow-hidden bg-muted">
+              <div className="lg:col-span-7 relative min-h-[260px] sm:min-h-[360px] lg:min-h-[440px] h-64 sm:h-80 lg:h-full min-w-0 overflow-hidden bg-muted">
                 <Image
                   src={currentProject.image}
                   alt={currentProject.title}

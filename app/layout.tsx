@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Sora, Fraunces } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { ToastProvider } from "@/components/ui/toast";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-heading",
@@ -73,14 +74,6 @@ export const metadata: Metadata = {
     siteName: "MICON",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "MICON - Construction & Engineering Solutions",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -118,6 +111,20 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <JsonLd />
+        {/* Google Tag (gtag.js) - Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-P1VQJ64GR5"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-P1VQJ64GR5');
+          `}
+        </Script>
       </head>
       <body
         className={`${sora.variable} ${jetbrainsMono.variable} ${fraunces.variable} font-body antialiased`}

@@ -41,7 +41,7 @@ export default function Expertise() {
               variant="outline"
               className="font-heading text-xs uppercase tracking-wider h-11 px-6 border-primary/50 text-primary hover:bg-primary hover:text-white rounded-full"
             >
-              View All 7 Services & Capabilities
+              Explore OUR Capabilities
             </Button>
           </Link>
         </motion.div>

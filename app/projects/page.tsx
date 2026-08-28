@@ -77,7 +77,7 @@ export default function ProjectsPage() {
       </PageHero>
 
       {/* Filter Section */}
-      <section className="sticky top-16 lg:top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-xs">
+      <section className="sticky top-16 lg:top-20 z-30 bg-background/95 backdrop-blur-md border-b border-border shadow-xs">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Mobile Filter Toggle */}
           <div className="lg:hidden mb-3">

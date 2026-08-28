@@ -53,9 +53,9 @@ export default function Home() {
       <Hero />
       <Certifications />
       <Expertise />
+      <Stats />
       <DesignBuildProcess />
       <MachineryFleet />
-      <Stats />
       <FeaturedProjects />
       <Partners />
       <CTA />

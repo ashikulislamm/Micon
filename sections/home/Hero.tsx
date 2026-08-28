@@ -35,7 +35,7 @@ export default function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-12 pb-10 min-h-screen flex flex-col justify-center">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 lg:pt-36 pb-16 min-h-screen flex flex-col justify-center items-center">
         <div className="max-w-4xl mx-auto text-center">
           {/* Established Badge */}
           <motion.div

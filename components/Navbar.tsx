@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import Logo from "@/public/Logo.png";
+import LogoWhite from "@/public/Logo_White.png";
+import LogoBlack from "@/public/Logo_Black.png";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -49,27 +50,32 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  // Use black logo when scrolled down OR when mobile menu drawer is open
+  const logoSrc = isScrolled || isOpen ? LogoBlack : LogoWhite;
+
   return (
     <>
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-300 ${
+          isOpen
+            ? "bg-card border-b border-border shadow-md py-0"
+            : isScrolled
             ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border py-0"
             : "bg-transparent border-b border-transparent shadow-none py-2"
         }`}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
+            {/* Dynamic Logo Switching */}
             <Link href="/" className="flex items-center gap-2 group">
               <div className="relative w-36 h-16 transition-transform group-hover:scale-105">
                 <Image
-                  src={Logo}
+                  src={logoSrc}
                   alt="MICON Logo"
-                  className="object-contain w-full h-full filter drop-shadow-sm"
+                  className="object-contain w-full h-full filter drop-shadow-sm transition-opacity duration-300"
                   priority
                 />
               </div>
@@ -129,7 +135,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`lg:hidden p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg ${
-                isScrolled ? "text-foreground hover:text-primary" : "text-white hover:text-primary"
+                isScrolled || isOpen ? "text-foreground hover:text-primary" : "text-white hover:text-primary"
               }`}
               aria-label="Toggle menu"
             >
@@ -139,7 +145,7 @@ export default function Navbar() {
         </nav>
       </motion.header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Drawer (High z-index to overlay page sticky bars) */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -149,7 +155,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-foreground/30 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-foreground/60 backdrop-blur-md z-[60] lg:hidden"
               onClick={() => setIsOpen(false)}
             />
 
@@ -159,7 +165,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-16 right-0 bottom-0 w-full max-w-sm bg-card shadow-2xl z-40 lg:hidden overflow-y-auto border-l border-border"
+              className="fixed top-16 right-0 bottom-0 w-full sm:max-w-sm bg-card shadow-2xl z-[65] lg:hidden overflow-y-auto border-l border-border"
             >
               <div className="flex flex-col p-6 space-y-2">
                 {navLinks.map((link, index) => {
