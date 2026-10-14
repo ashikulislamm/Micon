@@ -3,10 +3,10 @@ import CTASection from "@/components/CTASection";
 export default function CTA() {
   return (
     <CTASection
-      title="Ready to Build Your Next Project?"
-      subtitle="GET STARTED TODAY"
-      description="Partner with MICON for reliable, cost-effective, and sustainable engineering solutions. Let's discuss how we can bring your vision to life."
-      primaryCtaText="Request a Quote"
+      title="Have a project in mind?"
+      subtitle="START A CONVERSATION"
+      description="Share your requirements and our engineers will respond with a technical proposal."
+      primaryCtaText="Request Proposal"
       primaryCtaHref="/quote"
       secondaryCtaText="Contact Us"
       secondaryCtaHref="/contact"

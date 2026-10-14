@@ -1,22 +1,12 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { SERVICES_DATA } from "@/lib/data/services";
-import SectionTitle from "@/components/SectionTitle";
+import PageHero from "@/components/PageHero";
 import CTASection from "@/components/CTASection";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  CheckCircle2,
-  Clock,
-  Shield,
-  ArrowRight,
-  ChevronLeft,
-  Building2,
-  FileCheck,
-} from "lucide-react";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -29,13 +19,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     return { title: "Service Not Found - MICON" };
   }
   return {
-    title: `${service.title} | MICON Engineering Bangladesh`,
-    description: `${service.shortDescription} Delivered across Bangladesh under ISO 9001:2015 certified protocols.`,
+    title: `${service.title} | MICON Bangladesh`,
+    description: `${service.shortDescription} Delivered across Bangladesh by MICON, an ISO 9001:2015 certified contractor.`,
     keywords: [
       service.title,
       service.shortTag,
       `${service.shortTag} Bangladesh`,
-      `${service.shortTag} contractor Dhaka`,
       "industrial construction Bangladesh",
       ...(service.standards || []),
       ...(service.applications || []),
@@ -44,9 +33,9 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
       canonical: `/services/${service.slug}`,
     },
     openGraph: {
-      title: `${service.title} - MICON Engineering Solutions`,
+      title: `${service.title} - MICON`,
       description: service.shortDescription,
-      url: `https://www.micon.com.bd/services/${service.slug}`,
+      url: `https://www.miconbd.com/services/${service.slug}`,
       type: "article",
     },
   };
@@ -60,156 +49,213 @@ export async function generateStaticParams() {
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = SERVICES_DATA.find((s) => s.slug === slug);
+  const index = SERVICES_DATA.findIndex((s) => s.slug === slug);
+  const service = SERVICES_DATA[index];
 
   if (!service) {
     notFound();
   }
 
+  const related = SERVICES_DATA.filter((s) => s.slug !== service.slug).slice(0, 3);
+
   return (
-    <div className="min-h-screen bg-background py-20 lg:py-28">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Link */}
-        <div className="mb-8">
-          <Link
-            href="/services"
-            className="font-heading text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-primary inline-flex items-center gap-1 transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" /> Back to All Services
-          </Link>
-        </div>
+    <div className="min-h-screen bg-background">
+      <PageHero
+        badge={service.shortTag}
+        title={service.title}
+        description={service.shortDescription}
+        bgImage={service.image}
+        className="lg:min-h-[560px]"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: service.shortTag },
+        ]}
+        primaryCta={{ label: "Request Proposal", href: "/quote" }}
+      />
 
-        {/* Service Hero Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center mb-16">
+      {/* Overview + specification matrix */}
+      <section className="py-16 lg:py-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center gap-3">
-              <Badge variant="default" size="lg">
-                {service.shortTag}
-              </Badge>
-              {service.badge && (
-                <Badge variant="outline" size="lg">
-                  {service.badge}
-                </Badge>
-              )}
-            </div>
-
-            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
-              {service.title}
-            </h1>
-
-            <p className="font-body text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-primary">
+              Overview
+            </span>
+            <p className="font-body text-base sm:text-lg leading-relaxed text-foreground">
               {service.description}
             </p>
 
-            {/* Service Guarantee Badges */}
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-heading text-[10px] uppercase tracking-wider text-muted-foreground">Estimated Timeline</p>
-                  <p className="font-heading text-sm font-bold text-foreground">{service.timeline}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                  <Shield className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-heading text-[10px] uppercase tracking-wider text-muted-foreground">Warranty Coverage</p>
-                  <p className="font-heading text-sm font-bold text-foreground">{service.warranty}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <Link href="/quote">
-                <Button size="xl" className="font-heading text-xs uppercase tracking-wider font-semibold">
-                  Get Technical Proposal for This Service
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Hero Image */}
-          <div className="lg:col-span-5 relative h-80 sm:h-96 lg:h-[450px] rounded-2xl overflow-hidden shadow-2xl border border-border">
-            <Image
-              src={service.image}
-              alt={service.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Technical Specifications & Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 mb-16">
-          {/* Key Deliverables & Features */}
-          <div className="lg:col-span-7 space-y-6">
-            <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
-              Key Engineering Features & Deliverables
-            </h2>
-            <div className="space-y-4">
-              {service.features.map((feature, idx) => (
-                <Card key={idx} className="border-border/60 hover:border-primary/40 transition-colors">
-                  <CardContent className="p-4 flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <span className="font-body text-sm sm:text-base text-foreground leading-relaxed">
-                      {feature}
-                    </span>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* Structural Specifications */}
-          <div className="lg:col-span-5 space-y-6">
-            <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
-              Technical Specifications
-            </h2>
-            <Card className="bg-card border-border">
-              <CardContent className="p-6 space-y-4 divide-y divide-border">
-                {service.specs.map((spec, idx) => (
-                  <div key={idx} className="pt-3 first:pt-0 flex items-center justify-between">
-                    <span className="font-body text-xs sm:text-sm text-muted-foreground">{spec.label}</span>
-                    <span className="font-heading text-xs sm:text-sm font-bold text-foreground">{spec.value}</span>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            {/* Applicable Building Codes */}
-            {service.standards && service.standards.length > 0 && (
-              <div className="p-6 bg-muted/40 rounded-xl border border-border space-y-3">
-                <div className="flex items-center gap-2 font-heading text-sm font-bold text-foreground">
-                  <FileCheck className="w-4 h-4 text-primary" /> Building Codes & Standards
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {service.standards.map((code, cIdx) => (
-                    <Badge key={cIdx} variant="outline" size="sm">
-                      {code}
-                    </Badge>
+            {service.applications && (
+              <div className="pt-4">
+                <h3 className="font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+                  Applications
+                </h3>
+                <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                  {service.applications.map((app) => (
+                    <li key={app} className="flex items-center gap-2 font-body text-sm text-foreground">
+                      <span className="h-1.5 w-1.5 bg-primary shrink-0" />
+                      {app}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )}
           </div>
-        </div>
 
-        <CTASection
-          title={`Ready to start your ${service.shortTag} project?`}
-          subtitle="EXPERT CONSULTATION"
-          description="Speak with our technical engineering directors for detailed cost estimations and structural drawings."
-          primaryCtaText="Request Detailed Quote"
-          primaryCtaHref="/quote"
-          showContactBar
-        />
-      </div>
+          <aside className="lg:col-span-5">
+            <dl className="bg-card shadow-xs divide-y divide-border/60">
+              {service.specs.map((spec) => (
+                <div key={spec.label} className="p-5 grid grid-cols-3 gap-4">
+                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground col-span-1">
+                    {spec.label}
+                  </dt>
+                  <dd className="font-body text-sm font-semibold text-foreground col-span-2">
+                    {spec.value}
+                  </dd>
+                </div>
+              ))}
+              {service.standards && (
+                <div className="p-5">
+                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+                    Standards
+                  </dt>
+                  <dd className="flex flex-wrap gap-2">
+                    {service.standards.map((code) => (
+                      <span key={code} className="bg-muted px-2.5 py-1 font-mono text-xs text-foreground">
+                        {code}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      {/* Key advantages */}
+      <section className="py-16 lg:py-24 bg-muted/40">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-primary">
+              What You Get
+            </span>
+            <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mt-2">
+              Key <span className="font-accent italic font-normal text-primary">Advantages</span>
+            </h2>
+          </div>
+          <ol className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {service.features.map((feature, idx) => (
+              <li key={feature} className="bg-card p-6 flex gap-5 shadow-xs">
+                <span className="font-mono text-sm font-bold text-primary">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span className="font-body text-sm sm:text-base leading-relaxed text-foreground">
+                  {feature}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Executed projects */}
+      {service.references && service.references.length > 0 && (
+        <section className="py-16 lg:py-24">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-10">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-primary">
+                Track Record
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mt-2">
+                Executed <span className="font-accent italic font-normal text-primary">Projects</span>
+              </h2>
+            </div>
+            <div className="bg-card shadow-xs overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="bg-muted/60 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    <th className="py-3 px-6 font-semibold">Client</th>
+                    <th className="py-3 px-6 font-semibold hidden md:table-cell">Location</th>
+                    <th className="py-3 px-6 font-semibold">Scope</th>
+                    <th className="py-3 px-6 font-semibold text-right">Area</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/60 font-body text-sm">
+                  {service.references.map((ref) => (
+                    <tr key={ref.client + ref.scope} className="hover:bg-muted/40 transition-colors">
+                      <td className="py-4 px-6 font-heading font-bold text-foreground">{ref.client}</td>
+                      <td className="py-4 px-6 text-muted-foreground hidden md:table-cell">{ref.location}</td>
+                      <td className="py-4 px-6 text-foreground">{ref.scope}</td>
+                      <td className="py-4 px-6 text-right font-mono text-xs text-primary whitespace-nowrap">
+                        {ref.area ?? "-"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Related services */}
+      <section className="py-16 lg:py-24 bg-muted/40">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-4 mb-10">
+            <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground">
+              Other <span className="font-accent italic font-normal text-primary">Services</span>
+            </h2>
+            <Link href="/services">
+              <Button variant="outline" className="rounded-none font-heading text-xs uppercase tracking-wider">
+                All Services
+              </Button>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {related.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/services/${item.slug}`}
+                className="group bg-card shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative h-40 overflow-hidden bg-muted">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="p-5 space-y-2">
+                  <span className="font-mono text-[11px] font-semibold uppercase tracking-widest text-primary">
+                    {item.shortTag}
+                  </span>
+                  <h3 className="font-heading text-base font-bold text-card-foreground leading-snug">
+                    {item.title}
+                  </h3>
+                  <span className="inline-flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-wider text-primary pt-1">
+                    View
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTASection
+        title={`Planning a ${service.shortTag} project?`}
+        subtitle="START A CONVERSATION"
+        description="Talk to our engineers for an estimate and technical proposal."
+        primaryCtaText="Request Proposal"
+        primaryCtaHref="/quote"
+        secondaryCtaText="Contact Us"
+        secondaryCtaHref="/contact"
+        showContactBar
+      />
     </div>
   );
 }

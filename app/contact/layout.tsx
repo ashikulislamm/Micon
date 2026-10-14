@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us - Get in Touch with MICON",
   description:
-    "Contact MICON for construction inquiries, project consultations, and engineering services. Our office is in Dhaka, Bangladesh. Call us at +880 1812-345-678 or email info@micon.com.bd",
+    "Contact MICON for construction inquiries, project consultations, and engineering services. Our corporate office is in Vatara, Gulshan, Dhaka. Call us at +880 1844 509 800 or email noman@miconbd.com",
   keywords: [
     "contact MICON",
     "construction company contact",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Contact MICON - Construction & Engineering Services",
     description:
       "Get in touch with Bangladesh's leading construction company. Office in Dhaka with expert consultation available.",
-    url: "https://www.micon.com.bd/contact",
+    url: "https://www.miconbd.com/contact",
     type: "website",
   },
   alternates: {

@@ -6,26 +6,26 @@ import ProcessFlow from "@/sections/services/ProcessFlow";
 import CTA from "@/sections/services/CTA";
 
 export const metadata: Metadata = {
-  title: "Our Services - Complete Engineering & Construction Solutions",
+  title: "Our Services - Design-Build Steel, Turnkey RCC & Treatment Plants | MICON",
   description:
-    "Explore MICON's comprehensive construction services: PEB Steel Buildings, Turnkey RCC & Steel Structures, ETP/WTP/STP Plants, Boundary Walls, Retrofitting, Industrial Infrastructure, and BIM Technology Implementation.",
+    "MICON's seven service lines: Design-Build PEB Steel Buildings, Turnkey RCC & Steel Structures, ETP/WTP/STP/RMS Rooms, Boundary Walls, Structural Retrofitting, Industrial Utility Infrastructure, and BIM & Modular Construction.",
   keywords: [
     "construction services Bangladesh",
-    "pre-engineered building services",
+    "pre-engineered steel building Bangladesh",
     "turnkey construction",
-    "treatment plant construction",
+    "ETP WTP STP construction",
     "boundary wall construction",
-    "retrofitting services",
+    "structural retrofitting",
     "BIM implementation",
     "modular construction",
     "industrial construction services",
     "utility infrastructure construction",
   ],
   openGraph: {
-    title: "Our Services - MICON Engineering Solutions",
+    title: "Our Services - MICON",
     description:
-      "7 specialized construction services including Design-Build PEB, Turnkey RCC & Steel, Treatment Plants, Boundary Walls, Retrofitting, Infrastructure, and BIM Technology.",
-    url: "https://www.micon.com.bd/services",
+      "Seven engineering and construction service lines delivered design-build by an ISO 9001:2015 certified, PWD Class-A contractor.",
+    url: "https://www.miconbd.com/services",
     type: "website",
   },
   alternates: {

@@ -35,17 +35,17 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.5rem;
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   /* Background: Off-white architectural canvas */
   --background: #F8F9FA;
   /* Foreground: Dark Slate Charcoal text */
@@ -197,6 +197,29 @@
   }
   .section-header-mb {
     margin-bottom: 3rem;
+  }
+
+  .blueprint-grid {
+    background-image: linear-gradient(to right, rgba(226, 231, 237, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(226, 231, 237, 0.4) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .dark .blueprint-grid {
+    background-image: linear-gradient(to right, rgba(45, 51, 63, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(45, 51, 63, 0.4) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .blueprint-hairline {
+    border-color: var(--border);
+  }
+
+  .blueprint-tag {
+    font-family: var(--font-heading), monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 }
 

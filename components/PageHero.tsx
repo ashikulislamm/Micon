@@ -16,7 +16,7 @@ export interface CtaButton {
   label: string;
   href?: string;
   icon?: React.ElementType;
-  variant?: "default" | "outline" | "secondary" | "ghost" | "solid";
+  variant?: "default" | "outline" | "secondary" | "ghost" | "solid" | "heroOutline";
   onClick?: () => void;
 }
 
@@ -29,7 +29,7 @@ export interface PageHeroProps {
   breadcrumbs?: BreadcrumbItem[];
   primaryCta?: CtaButton;
   secondaryCta?: CtaButton;
-  children?: React.ReactNode; // Optional slot for extra elements like Search Bar
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -48,80 +48,143 @@ export default function PageHero({
   return (
     <section
       className={cn(
-        "relative min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] h-auto w-full overflow-hidden bg-foreground flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-20 sm:pb-24 lg:pb-28",
+        "relative min-h-[580px] sm:min-h-[640px] lg:min-h-[800px] h-auto w-full overflow-hidden bg-foreground flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-24",
         className
       )}
     >
-      {/* Background Image & Layered Dark Overlays */}
+      {/* Background Image & Layered Architectural Dark Overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('${bgImage}')`,
           }}
         />
 
-        {/* Primary Dark Contrast Overlay */}
-        <div className="absolute inset-0 bg-foreground/80 backdrop-blur-[2px]" />
+        {/* High-density industrial dark contrast overlay */}
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]" />
 
-        {/* Warm Light Orange Ambient Glow Overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_35%,rgba(242,148,66,0.22),transparent_55%)]" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[140px]" />
-
-        {/* Architectural Subtle Grid Lines */}
-        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:32px_32px]" />
+        {/* Senior designer ambient radial warmth (restrained, no neon blobs) */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[360px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
       </div>
 
-      {/* Main Content Container (Centered & Height Constrained) */}
+      {/* Main Content Container */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 w-full text-center flex flex-col items-center justify-center">
         <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">
-          {/* Section Badge */}
+          {/* Breadcrumb Navigation with Schema.org Microdata */}
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <motion.nav
+              aria-label="Breadcrumb"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mb-6"
+            >
+              <ol className="inline-flex flex-wrap items-center justify-center gap-1.5 px-4 py-1.5 rounded-full bg-black/50 border border-white/10 backdrop-blur-md text-xs font-mono">
+                {breadcrumbs.map((crumb, idx) => {
+                  const isLast = idx === breadcrumbs.length - 1;
+                  return (
+                    <li
+                      key={crumb.label + idx}
+                      className="inline-flex items-center gap-1.5"
+                    >
+                      {idx > 0 && (
+                        <ChevronRight className="w-3.5 h-3.5 text-white/40 shrink-0" />
+                      )}
+                      {crumb.href && !isLast ? (
+                        <Link
+                          href={crumb.href}
+                          className="text-white/70 hover:text-primary transition-colors font-normal"
+                        >
+                          {crumb.label}
+                        </Link>
+                      ) : (
+                        <span className="text-primary font-medium">
+                          {crumb.label}
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+
+              {breadcrumbs.length > 1 && (
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                      "@context": "https://schema.org",
+                      "@type": "BreadcrumbList",
+                      itemListElement: breadcrumbs.map((crumb, index) => ({
+                        "@type": "ListItem",
+                        position: index + 1,
+                        name: crumb.label,
+                        ...(crumb.href
+                          ? {
+                              item: crumb.href.startsWith("http")
+                                ? crumb.href
+                                : `https://www.miconbd.com${crumb.href}`,
+                            }
+                          : {}),
+                      })),
+                    }),
+                  }}
+                />
+              )}
+            </motion.nav>
+          )}
+
+          {/* Section Kicker */}
+          {badge && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mb-4"
+            >
+              <p className="text-xs sm:text-sm font-semibold tracking-widest text-primary uppercase">
+                {badge.replace(/^\/\/\s*/, "")}
+              </p>
+            </motion.div>
+          )}
+
+          {/* Dual-Font Editorial Title */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-4"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-5 text-center"
           >
-            <span className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary uppercase bg-primary/10 px-4 py-2 rounded-full border border-primary/30 shadow-xs">
-              {badge}
-            </span>
-          </motion.div>
-
-          {/* Main Title with Optional Highlight */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-6 text-center"
-          >
-            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-white drop-shadow-sm">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] tracking-tight text-white drop-shadow-xs">
               {title}
               {highlight && (
                 <>
-                  <br />
-                  <span className="font-accent italic text-primary">{highlight}</span>
+                  {" "}
+                  <span className="font-accent italic text-primary font-normal block sm:inline mt-1 sm:mt-0">
+                    {highlight}
+                  </span>
                 </>
               )}
             </h1>
           </motion.div>
 
-          {/* Description */}
+          {/* Body Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-body text-base sm:text-lg text-white/90 mb-8 lg:mb-10 max-w-2xl mx-auto leading-relaxed text-center"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="font-body text-base sm:text-lg text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed text-center"
           >
             {description}
           </motion.p>
 
-          {/* Action Buttons (All Rounded Full) */}
+          {/* Senior Action Buttons */}
           {(primaryCta || secondaryCta) && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto"
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-3.5 items-center justify-center w-full sm:w-auto"
             >
               {primaryCta && (
                 primaryCta.href ? (
@@ -129,7 +192,7 @@ export default function PageHero({
                     <Button
                       size="xl"
                       variant={primaryCta.variant || "default"}
-                      className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-full shadow-lg hover:scale-105 transition-all bg-primary hover:bg-primary/90 text-white"
+                      className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-none shadow-md hover:bg-primary/90 transition-colors"
                     >
                       {primaryCta.label}
                       {primaryCta.icon ? (
@@ -144,7 +207,7 @@ export default function PageHero({
                     size="xl"
                     variant={primaryCta.variant || "default"}
                     onClick={primaryCta.onClick}
-                    className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-full shadow-lg hover:scale-105 transition-all bg-primary hover:bg-primary/90 text-white"
+                    className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-none shadow-md hover:bg-primary/90 transition-colors"
                   >
                     {primaryCta.label}
                     {primaryCta.icon ? (
@@ -162,7 +225,7 @@ export default function PageHero({
                     <Button
                       size="xl"
                       variant={secondaryCta.variant || "heroOutline"}
-                      className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-full shadow-md backdrop-blur-xs transition-all"
+                      className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-none backdrop-blur-xs transition-colors"
                     >
                       {secondaryCta.icon && (
                         <secondaryCta.icon className="mr-2 h-4 w-4" />
@@ -175,7 +238,7 @@ export default function PageHero({
                     size="xl"
                     variant={secondaryCta.variant || "heroOutline"}
                     onClick={secondaryCta.onClick}
-                    className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-full shadow-md backdrop-blur-xs transition-all"
+                    className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-12 px-8 rounded-none backdrop-blur-xs transition-colors"
                   >
                     {secondaryCta.icon && (
                       <secondaryCta.icon className="mr-2 h-4 w-4" />
@@ -187,12 +250,12 @@ export default function PageHero({
             </motion.div>
           )}
 
-          {/* Optional Extra Slot (e.g. Search Bar) */}
+          {/* Children Slot (e.g. Filter Bar or Search) */}
           {children && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="mt-8 w-full max-w-2xl mx-auto"
             >
               {children}

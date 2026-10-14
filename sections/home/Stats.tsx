@@ -11,14 +11,22 @@ interface StatItemProps {
   delay?: number;
 }
 
-function Counter({ end, suffix = "", delay = 0 }: { end: number; suffix?: string; delay?: number }) {
+function Counter({
+  end,
+  suffix = "",
+  delay = 0,
+}: {
+  end: number;
+  suffix?: string;
+  delay?: number;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, {
-    damping: 100,
-    stiffness: 100,
+    damping: 50,
+    stiffness: 90,
   });
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   useEffect(() => {
     if (isInView) {
@@ -41,26 +49,28 @@ function Counter({ end, suffix = "", delay = 0 }: { end: number; suffix?: string
   return <span ref={ref}>0{suffix}</span>;
 }
 
-function StatItem({ end, suffix, label, subtitle, delay }: StatItemProps) {
+function StatItem({ end, suffix, label, subtitle, delay = 0 }: StatItemProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, delay }}
-      className="text-center px-6 lg:px-8"
+      transition={{ duration: 0.5, delay }}
+      className="flex flex-col justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-6"
     >
-      <div className="mb-3 lg:mb-4">
-        <h3 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-primary tracking-tight">
-          <Counter end={end} suffix={suffix} delay={(delay || 0) * 1000} />
+      <div className="mb-2">
+        <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+          <Counter end={end} suffix={suffix} delay={delay * 1000} />
         </h3>
       </div>
-      <p className="font-heading text-base lg:text-lg font-bold text-foreground mb-2">
-        {label}
-      </p>
-      <p className="font-body text-xs lg:text-sm text-muted-foreground">
-        {subtitle}
-      </p>
+      <div>
+        <p className="font-heading text-sm sm:text-base font-semibold text-foreground mb-1">
+          {label}
+        </p>
+        <p className="font-body text-xs text-muted-foreground leading-relaxed">
+          {subtitle}
+        </p>
+      </div>
     </motion.div>
   );
 }
@@ -68,29 +78,35 @@ function StatItem({ end, suffix, label, subtitle, delay }: StatItemProps) {
 export default function Stats() {
   const stats = [
     {
-      end: 30,
-      suffix: "+",
-      label: "Industry Experts",
-      subtitle: "Certified Engineers & Technicians",
-    },
-    {
       end: 100,
       suffix: "+",
-      label: "Successful Projects",
-      subtitle: "Delivered Across Bangladesh",
+      label: "Turnkey Projects Delivered",
+      subtitle: "Factories, warehouses & infrastructure across Bangladesh",
+    },
+    {
+      end: 5000,
+      suffix: " MT",
+      label: "Monthly Fabrication Output",
+      subtitle: "Off-site automated CNC beam lines and steel processing",
+    },
+    {
+      end: 30,
+      suffix: "+",
+      label: "Industry Engineers & Leads",
+      subtitle: "Structural, civil, MEP and certified BIM detailers",
     },
     {
       end: 7,
       suffix: "+",
-      label: "Established",
-      subtitle: "Years of Industrial Excellence",
+      label: "Years of Established EPC",
+      subtitle: "ISO 9001:2015 certified with Zero Incident HSE protocol",
     },
   ];
 
   return (
-    <section className="py-16 lg:py-20 bg-muted/30 border-y border-border">
+    <section className="py-12 lg:py-16 bg-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 md:divide-y-0 md:divide-x divide-border gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-b">
           {stats.map((stat, index) => (
             <StatItem
               key={stat.label}
@@ -98,7 +114,7 @@ export default function Stats() {
               suffix={stat.suffix}
               label={stat.label}
               subtitle={stat.subtitle}
-              delay={index * 0.2}
+              delay={index * 0.1}
             />
           ))}
         </div>

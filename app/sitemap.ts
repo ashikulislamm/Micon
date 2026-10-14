@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { SERVICES_DATA } from "@/lib/data/services";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.micon.com.bd";
+  const baseUrl = "https://www.miconbd.com";
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [

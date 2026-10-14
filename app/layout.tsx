@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s | MICON",
   },
   description:
-    "MICON delivers world-class industrial construction services including PEB Steel Buildings, RCC Structures, ETP/WTP Plants, and BIM Technology. ISO 9001:2015 certified with 500+ successful projects across Bangladesh.",
+    "MICON delivers world-class industrial construction services including PEB Steel Buildings, RCC Structures, ETP/WTP Plants, and BIM Technology. ISO 9001:2015 certified with 100+ turnkey projects delivered across Bangladesh.",
   keywords: [
     "construction company Bangladesh",
     "pre-engineered steel buildings",
@@ -62,15 +62,15 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://www.micon.com.bd"),
+  metadataBase: new URL("https://www.miconbd.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "MICON - Leading Construction & Engineering Solutions",
     description:
-      "ISO 9001:2015 certified construction company specializing in PEB Steel Buildings, RCC Structures, Treatment Plants, and advanced BIM technologies. 500+ projects delivered across Bangladesh.",
-    url: "https://www.micon.com.bd",
+      "ISO 9001:2015 certified construction company specializing in PEB Steel Buildings, RCC Structures, Treatment Plants, and advanced BIM technologies. 100+ turnkey projects delivered across Bangladesh.",
+    url: "https://www.miconbd.com",
     siteName: "MICON",
     locale: "en_US",
     type: "website",
@@ -96,8 +96,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
   },
   category: "construction",
 };

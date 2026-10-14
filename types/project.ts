@@ -1,4 +1,10 @@
-export type ProjectCategory = "all" | "peb-steel" | "rcc" | "green" | "facilities";
+export type ProjectCategory =
+  | "all"
+  | "peb-steel"
+  | "rcc"
+  | "green"
+  | "facilities"
+  | "retrofitting";
 
 export type ProjectStatus = "completed" | "ongoing" | "upcoming";
 

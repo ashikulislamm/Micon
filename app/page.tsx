@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "MICON - Leading Construction & Engineering Solutions in Bangladesh",
     description:
       "ISO 9001:2015 certified engineering firm delivering 60m+ clear span PEB steel buildings, turnkey RCC structures, treatment plants, and BIM 3D modeling across Bangladesh.",
-    url: "https://www.micon.com.bd",
+    url: "https://www.miconbd.com",
     siteName: "MICON",
     locale: "en_US",
     type: "website",

@@ -1,113 +1,51 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Leaf, Zap, Recycle, BarChart3, ShieldCheck } from "lucide-react";
+import SectionTitle from "@/components/SectionTitle";
 
-const certifications = [
-  { icon: Award, title: "ISO 9001:2015", subtitle: "Quality Management Certified" },
-  { icon: ShieldCheck, title: "OHSAS 18001", subtitle: "Health & Safety Compliance" },
-  { icon: Award, title: "BEPZA Certified", subtitle: "Export Processing Zone Standard" },
-  { icon: Leaf, title: "DoE Compliant", subtitle: "Department of Environment" },
-];
-
-const sustainabilityFeatures = [
-  { icon: Leaf, title: "Green Progress", description: "Low-carbon eco materials & LEED gold design" },
-  { icon: Zap, title: "Clean Efficiency", description: "Solar-ready roof trusses & thermal insulation" },
-  { icon: Recycle, title: "Zero Waste", description: "Off-site CNC prefabrication reducing site scrap" },
-  { icon: BarChart3, title: "Carbon Tracking", description: "BIM life-cycle environmental modeling" },
+const credentials = [
+  { title: "ISO 9001:2015", detail: "Quality management" },
+  { title: "PWD Class-A", detail: "Enlisted contractor, Dhaka district" },
+  { title: "MES", detail: "Enlistment with DGFI security clearance" },
+  { title: "BEPZA", detail: "Certified for EPZ works" },
+  { title: "BEZA", detail: "Enlistment certificate" },
+  { title: "LGED", detail: "Registered contractor" },
 ];
 
 export default function Standards() {
   return (
-    <section className="py-16 lg:py-24 bg-card border-y border-border relative overflow-hidden">
+    <section className="py-16 lg:py-24 bg-muted/40">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Centered Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 uppercase"
-          >
-            QUALITY & SUSTAINABILITY
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4"
-          >
-            Engineered to <span className="font-accent italic text-primary">Highest Global Standards</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-body text-sm lg:text-base text-muted-foreground leading-relaxed"
-          >
-            Integrating BNBC 2020, AISC 360-16, and ISO 9001:2015 quality control across every project stage.
-          </motion.p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <div className="lg:col-span-4">
+            <SectionTitle
+              label="Credentials"
+              title="Licensed and"
+              subtitle="Certified"
+              className="mb-6 lg:mb-0"
+            />
+            <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-sm lg:-mt-6">
+              Full legal compliance and industry recognition for engineering, procurement and construction.
+            </p>
+          </div>
 
-        {/* 4 Sustainability Features Grid - Centered Symmetrical Icons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 lg:mb-10">
-          {sustainabilityFeatures.map((feat, idx) => {
-            const Icon = feat.icon;
-            return (
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {credentials.map((item, idx) => (
               <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                key={item.title}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-background rounded-xl p-6 border border-border shadow-xs text-center flex flex-col items-center justify-between hover:border-primary/40 transition-all duration-300"
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
+                className="bg-card p-6 shadow-xs"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3.5 mx-auto">
-                  <Icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-heading text-base font-bold text-foreground mb-1.5">
-                    {feat.title}
-                  </h3>
-                  <p className="font-body text-xs text-muted-foreground leading-relaxed">
-                    {feat.description}
-                  </p>
-                </div>
+                <h3 className="font-mono text-lg font-bold text-foreground">{item.title}</h3>
+                <p className="font-body text-xs text-muted-foreground mt-1.5 leading-relaxed">
+                  {item.detail}
+                </p>
               </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Certifications Badge Grid - Matching Centered Symmetrical Icons */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {certifications.map((cert, index) => {
-            const Icon = cert.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-background rounded-xl p-6 border border-border shadow-xs text-center flex flex-col items-center justify-between hover:border-primary/40 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3.5 mx-auto">
-                  <Icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-foreground text-base mb-1.5">
-                    {cert.title}
-                  </h4>
-                  <p className="font-body text-xs text-muted-foreground">
-                    {cert.subtitle}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

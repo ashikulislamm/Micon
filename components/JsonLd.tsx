@@ -2,7 +2,7 @@ import { COMPANY_CONTACT } from "@/lib/data/company";
 import { SERVICES_DATA } from "@/lib/data/services";
 
 export default function JsonLd() {
-  const baseUrl = "https://www.micon.com.bd";
+  const baseUrl = "https://www.miconbd.com";
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -55,7 +55,7 @@ export default function JsonLd() {
           COMPANY_CONTACT.social.facebook,
           COMPANY_CONTACT.social.youtube || "",
         ].filter(Boolean),
-        foundingDate: "2017",
+        foundingDate: "2018",
         numberOfEmployees: {
           "@type": "QuantitativeValue",
           value: 50,

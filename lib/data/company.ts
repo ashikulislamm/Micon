@@ -1,20 +1,26 @@
 import { ContactInfo, FaqItem, Certification } from "@/types/company";
 
+// Canonical contact details — source: COMPANY.md (Corporate Office block).
+// COMPANY.md lists a single official phone number, so every phone field resolves to it.
+const OFFICIAL_PHONE = "+880 1844 509 800";
+const OFFICIAL_EMAIL = "noman@miconbd.com";
+
 export const COMPANY_CONTACT: ContactInfo = {
   headOffice: {
-    title: "Head Office",
+    title: "Corporate Office",
     addressLines: [
       "Ka-6/A, 3rd Floor, Jagannathpur",
-      "Vatara, Dhaka - 1229, Bangladesh",
+      "Vatara, Gulshan, Dhaka 1229, Bangladesh",
     ],
-    phone: "+880 1812 345 678",
-    email: "info@micon.com.bd",
+    phone: OFFICIAL_PHONE,
+    email: OFFICIAL_EMAIL,
   },
-  hotline: "+880 1812 345 678",
-  mobile: "+880 1712 345 678",
-  officePhone: "+880 2 8956 234",
-  emergencyPhone: "+880 1812 345 678",
-  email: "info@micon.com.bd",
+  hotline: OFFICIAL_PHONE,
+  mobile: OFFICIAL_PHONE,
+  officePhone: OFFICIAL_PHONE,
+  emergencyPhone: OFFICIAL_PHONE,
+  email: OFFICIAL_EMAIL,
+  website: "https://www.miconbd.com",
   businessHours: {
     days: "Sunday - Thursday",
     hours: "9:00 AM - 7:00 PM",
@@ -32,33 +38,33 @@ export const COMPANY_CONTACT: ContactInfo = {
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: "What is the average timeline for a PEB project?",
+    question: "How long does a PEB steel building project take?",
     answer:
-      "Pre-Engineered Building (PEB) projects typically take 3 to 6 months from design approval to final handover, depending on scale and site conditions.",
+      "Most Pre-Engineered Building (PEB) projects take 3 to 6 months from design approval to final handover, depending on building size and site conditions.",
     category: "PEB",
   },
   {
-    question: "Are MICON buildings LEED certified?",
+    question: "Do you build LEED-certified green factories?",
     answer:
-      "Yes, we specialize in green factory construction and LEED-certified building design, incorporating energy-efficient cladding, natural day-lighting, and eco-friendly structural systems.",
+      "Yes, we design and build green factories with energy-efficient insulation, natural daylighting, solar readiness, and eco-friendly construction practices.",
     category: "Sustainability",
   },
   {
-    question: "Do you provide turnkey RCC & hybrid solutions?",
+    question: "Do you handle complete turnkey construction?",
     answer:
-      "Absolutely. We offer complete single-source turnkey civil construction—from soil testing and deep bored piling to RCC superstructures, structural steel fabrication, and MEP installation.",
+      "Yes, we manage the entire construction process from start to finish—including soil testing, piling, civil RCC work, steel fabrication, and building utilities.",
     category: "Civil",
   },
   {
-    question: "How do you handle project safety and quality control?",
+    question: "How do you ensure project safety and quality?",
     answer:
-      "We strictly adhere to ISO 9001:2015 Quality Management Systems and BNBC 2020 codes. Our project sites maintain a Zero Incident HSE Protocol with daily safety briefings and third-party material certifications.",
+      "We follow ISO 9001:2015 quality standards and Bangladesh National Building Code (BNBC) rules, with strict safety checks and tested materials on every site.",
     category: "Quality",
   },
   {
-    question: "Can MICON handle specialized ETP/WTP environmental facilities?",
+    question: "Do you build ETP and WTP treatment plants?",
     answer:
-      "Yes, we construct Department of Environment (DoE) Bangladesh compliant Effluent Treatment Plants (ETP) and Water Treatment Plants (WTP) equipped with modern SCADA automated controls.",
+      "Yes, we construct Effluent Treatment Plants (ETP), Water Treatment Plants (WTP), and Sewage Treatment Plants (STP) for industrial facilities.",
     category: "Environmental",
   },
 ];

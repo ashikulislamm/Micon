@@ -3,115 +3,90 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wrench } from "lucide-react";
+import { ArrowRight, Layers, ShieldCheck, CheckCircle2 } from "lucide-react";
 
-import "swiper/css";
-import "swiper/css/free-mode";
-
-const certifications = [
-  { name: "REGISTERED", subtitle: "" },
-  { name: "ISO 9001:2015", subtitle: "" },
-  { name: "GREEN BUILDING", subtitle: "COUNCIL" },
-  { name: "PWD", subtitle: "A-CLASS" },
-  { name: "BEPZA", subtitle: "CERTIFIED" },
+const TELEMETRY_METRICS = [
+  { value: "60M+", label: "Clear Span Steel", detail: "AISC & BNBC Compliant" },
+  { value: "5,000 MT", label: "Monthly Output", detail: "Automated CNC Fabrication" },
+  { value: "100+", label: "Turnkey Delivered", detail: "Single-Source EPC" },
+  { value: "ISO 9001", label: "Quality Certified", detail: "Zero Incident Protocol" },
 ];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-foreground">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-[92vh] lg:min-h-screen w-full overflow-hidden bg-foreground flex flex-col justify-between pt-28 lg:pt-36">
+      {/* Background Image & Architectural Overlays */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('/hero-bg.jpg')",
           }}
         />
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-foreground/75" />
 
-        {/* Gradient Overlays for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground via-transparent to-transparent" />
+        {/* High-density industrial charcoal contrast overlay */}
+        <div className="absolute inset-0 bg-[#0A0D12]/85 backdrop-blur-[1.5px]" />
+        {/* Subtle, restrained amber ambient illumination (no neon blobs) */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/15 blur-[160px]" />
+
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-28 lg:pt-36 pb-16 min-h-screen flex flex-col justify-center items-center">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Established Badge */}
+      {/* Main Center Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 my-auto py-12 lg:py-16 text-center flex flex-col items-center justify-center">
+        <div className="max-w-4xl mx-auto flex flex-col items-center">
+          {/* Established Kicker */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-4"
+          >
+            <p className="text-xs sm:text-sm font-semibold tracking-widest text-primary uppercase">
+              Established 2018
+            </p>
+          </motion.div>
+
+          {/* High-Impact Architectural Dual-Font Headline */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-block mb-6 lg:mb-8"
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mb-8 lg:mb-10 text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full border border-primary/30">
-              <span className="font-heading text-xs sm:text-sm font-semibold tracking-wider text-white uppercase">
-                Established Since 2018
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+              PRECISION STEEL &amp;
+              <span className="font-accent italic text-primary font-normal block my-1 sm:my-2">
+                Turnkey Industrial
               </span>
-            </div>
-          </motion.div>
-
-          {/* Main Heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-6 lg:mb-8"
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-none tracking-tight">
-              <span className="font-heading block text-white">BUILDING</span>
-              <span className="font-accent block text-primary italic font-extrabold my-1">
-                BEYOND
-              </span>
-              <span className="font-heading block text-white">EXCELLENCE</span>
+              INFRASTRUCTURE
             </h1>
           </motion.div>
 
-          {/* Subheading */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="font-body text-base sm:text-lg lg:text-xl text-gray-300 mb-8 lg:mb-12 max-w-2xl mx-auto leading-relaxed"
-          >
-            Pioneering sustainable engineering and high-impact structural
-            integrity for the future of industrial growth.
-          </motion.p>
-
-          {/* CTA Buttons */}
+          {/* Senior Action CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center items-center"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center justify-center"
           >
-            {/* Primary CTA - Portfolio */}
             <Link href="/projects" className="w-full sm:w-auto">
               <Button
-                size="lg"
-                className="font-heading group relative overflow-hidden bg-primary hover:bg-accent text-white font-semibold px-10 lg:px-12 h-14 lg:h-16 text-base lg:text-lg rounded-full shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 border-2 border-primary hover:border-accent w-full"
+                size="xl"
+                className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-13 px-8 shadow-lg bg-primary hover:bg-primary/90 text-white transition-colors"
               >
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  VIEW PORTFOLIO
-                  <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6 transition-transform group-hover:translate-x-2 duration-300" />
-                </span>
-                {/* Shimmer Effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <span>Inspect Project Portfolio</span>
+                <ArrowRight className="ml-2.5 h-4 w-4" />
               </Button>
             </Link>
 
-            {/* Secondary CTA - Expertise */}
             <Link href="/services" className="w-full sm:w-auto">
               <Button
-                size="lg"
-                className="font-heading group relative overflow-hidden bg-transparent hover:bg-white/10 text-white font-semibold px-10 lg:px-12 h-14 lg:h-16 text-base lg:text-lg rounded-full border-2 border-white/40 hover:border-white transition-all duration-300 backdrop-blur-sm shadow-lg w-full"
+                size="xl"
+                variant="heroOutline"
+                className="font-heading text-xs uppercase tracking-wider font-semibold w-full sm:w-auto h-13 px-8 hover: text-white backdrop-blur-xs transition-colors"
               >
-                <span className="relative z-10 flex items-center justify-center gap-3">
-                  <Wrench className="h-5 w-5 lg:h-6 lg:w-6 transition-transform group-hover:rotate-12 duration-300" />
-                  OUR EXPERTISE
-                </span>
-                {/* Glow Effect on Hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/5" />
+                <Layers className="mr-2 h-4 w-4 text-primary" />
+                <span>Engineering Capabilities</span>
               </Button>
             </Link>
           </motion.div>

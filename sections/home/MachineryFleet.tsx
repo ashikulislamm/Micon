@@ -1,86 +1,104 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Wrench, ShieldAlert, Cpu, Truck, Check } from "lucide-react";
+import { Cpu, Truck, Wrench, ShieldCheck, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import SectionTitle from "@/components/SectionTitle";
 
-const fleetItems = [
+const FLEET_ITEMS = [
   {
     icon: Cpu,
-    title: "CNC Beam Cutting & H-Beam Welding Lines",
+    category: "CNC Fabrication",
+    title: "CNC Beam Lines & Submerged Arc Welding",
     capacity: "5,000 MT / Month",
-    description: "Fully automated CNC submerged arc welding lines for ultra-precise PEB structural fabrication.",
+    description:
+      "Fully automated CNC submerged arc welding and plasma plate cutters for high-precision PEB structural fabrication and tight tolerances.",
   },
   {
     icon: Truck,
+    category: "Heavy Rigging",
     title: "Heavy Crane Fleet & Transport Rigging",
-    capacity: "50-100 Ton Lifting Capacity",
-    description: "Mobile hydraulic cranes and heavy trailers for rapid structural steel site erection across Bangladesh.",
+    capacity: "50-100 Ton Lifting",
+    description:
+      "Owned mobile hydraulic cranes, boom trucks, and multi-axle trailers ensuring rapid structural steel and precast erection across Bangladesh.",
   },
   {
     icon: Wrench,
+    category: "Concrete Fleet",
     title: "Concrete Batching & Pumping Fleet",
-    capacity: "60 m³/hr Continuous Output",
-    description: "On-site automated concrete batching plants and boom pumps for heavy foundation pouring.",
+    capacity: "60 m³/hr Output",
+    description:
+      "Mobile concrete batching plants, transit mixers, and boom pumps for continuous, defect-free deep foundation and superstructure casting.",
   },
   {
-    icon: ShieldAlert,
-    title: "3D Laser Total Station & GPS Surveying",
-    capacity: "Sub-Millimeter Accuracy",
-    description: "Advanced geospatial and laser alignment tools for exact anchor bolt and column placement.",
+    icon: ShieldCheck,
+    category: "Geospatial Survey",
+    title: "3D Laser Total Stations & GPS Survey",
+    capacity: "±1mm Survey Precision",
+    description:
+      "Advanced Leica laser total stations and GNSS geospatial instruments for exact anchor bolt alignment and foundation coordinates.",
   },
 ];
 
 export default function MachineryFleet() {
   return (
-    <section className="py-16 lg:py-20 bg-muted/30 border-t border-border">
+    <section className="py-16 lg:py-24 bg-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
-          <p className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 uppercase">
-            HEAVY INDUSTRIAL CAPACITY
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4">
-            In-House <span className="font-accent italic text-primary">Machinery & Fleet</span>
-          </h2>
-          <p className="font-body text-sm lg:text-base text-muted-foreground leading-relaxed">
-            We own and operate high-capacity machinery to ensure 100% schedule reliability and uncompromised structural build quality.
-          </p>
-        </div>
+        <SectionTitle
+          label="CAPITAL EQUIPMENT"
+          title="Owned Heavy"
+          subtitle="Machinery & Fleet"
+          alignment="center"
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {fleetItems.map((item, index) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {FLEET_ITEMS.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 border border-border shadow-sm hover:border-primary/50 transition-all group"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="bg-background p-6 shadow-xs hover: transition-colors flex flex-col justify-between group"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                  <Icon className="w-6 h-6" />
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs text-primary uppercase tracking-wider font-semibold">
+                      {item.category}
+                    </span>
+                    <span className="text-[11px] px-2.5 py-0.5 bg-primary/10 text-primary font-medium">
+                      {item.capacity}
+                    </span>
+                  </div>
+
+                  <div className="w-10 h-10 bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <Icon className="w-5 h-5" />
+                  </div>
+
+                  <h3 className="font-heading text-base font-bold text-foreground mb-2 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="font-body text-xs text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-                <div className="inline-block px-2.5 py-1 bg-primary/10 text-primary font-heading text-xs font-semibold rounded-md mb-3">
-                  {item.capacity}
-                </div>
-                <h3 className="font-heading text-base font-bold text-card-foreground mb-2 leading-snug">
-                  {item.title}
-                </h3>
-                <p className="font-body text-xs text-muted-foreground leading-relaxed">
-                  {item.description}
-                </p>
               </motion.div>
             );
           })}
         </div>
 
-        <div className="mt-10 text-center">
-          <Link href="/about">
-            <Button variant="outline" className="font-heading text-xs uppercase tracking-wider h-11 px-6 border-primary/50 text-primary hover:bg-primary hover:text-white rounded-full">
-              View Complete Machinery & Equipment Fleet List
+        <div className="mt-10 lg:mt-12 text-center">
+          <Link href="/about#machinery">
+            <Button
+              variant="outline"
+              size="lg"
+              className="font-heading text-xs uppercase tracking-wider h-11 px-6 group cursor-pointer"
+            >
+              <span>View Complete 35+ Equipment Fleet</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
         </div>

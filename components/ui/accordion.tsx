@@ -24,7 +24,7 @@ export function AccordionItem({
   return (
     <div
       className={cn(
-        "rounded-xl border border-border bg-card transition-colors duration-200 overflow-hidden shadow-xs",
+        "rounded-none border border-border bg-card transition-colors duration-200 overflow-hidden shadow-xs",
         isOpen ? "border-primary/40 bg-card" : "hover:border-border/80",
         className
       )}
@@ -32,7 +32,7 @@ export function AccordionItem({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between p-5 text-left font-heading text-base font-semibold text-foreground transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+        className="flex w-full items-center justify-between p-5 text-left font-heading text-base font-semibold text-foreground transition-colors hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-none"
         aria-expanded={isOpen}
       >
         <span>{title}</span>

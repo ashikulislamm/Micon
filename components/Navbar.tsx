@@ -6,17 +6,16 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import LogoWhite from "@/public/Logo_White.png";
 import LogoBlack from "@/public/Logo_Black.png";
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Projects", href: "/projects" },
   { name: "Services", href: "/services" },
+  { name: "Projects", href: "/projects" },
   { name: "News", href: "/news" },
-  { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -24,21 +23,20 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile drawer on route change
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is active
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -50,102 +48,99 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  // Use black logo when scrolled down OR when mobile menu drawer is open
   const logoSrc = isScrolled || isOpen ? LogoBlack : LogoWhite;
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-300 ${
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
           isOpen
-            ? "bg-card border-b border-border shadow-md py-0"
+            ? "bg-card shadow-xs"
             : isScrolled
-            ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border py-0"
-            : "bg-transparent border-b border-transparent shadow-none py-2"
+            ? "bg-background/95 backdrop-blur-md shadow-xs"
+            : "bg-transparent"
         }`}
       >
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Dynamic Logo Switching */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative w-36 h-16 transition-transform group-hover:scale-105">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Architectural Brand Logo */}
+            <Link href="/" className="flex items-center gap-2 group shrink-0">
+              <div className="relative w-36 h-12 transition-opacity duration-200 group-hover:opacity-90">
                 <Image
                   src={logoSrc}
-                  alt="MICON Logo"
-                  className="object-contain w-full h-full filter drop-shadow-sm transition-opacity duration-300"
+                  alt="MICON - Metal Infrastructures & Constructions Ltd"
+                  className="object-contain w-full h-full"
                   priority
                 />
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-9" aria-label="Main Navigation">
               {navLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
+
                 return (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="relative group py-2"
+                    className="relative py-2 group"
                   >
                     <span
-                      className={`font-body text-sm font-medium transition-colors ${
+                      className={`font-body text-sm font-medium transition-colors duration-150 ${
                         isActive
-                          ? "text-primary font-bold"
+                          ? "text-primary font-semibold"
                           : isScrolled
                           ? "text-foreground/80 hover:text-primary"
-                          : "text-white/90 hover:text-primary drop-shadow-xs"
+                          : "text-white/90 hover:text-primary"
                       }`}
                     >
                       {link.name}
                     </span>
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeNav"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    {!isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+                    {isActive ? (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                    ) : (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
                     )}
                   </Link>
                 );
               })}
-            </div>
+            </nav>
 
-            {/* CTA Button - Desktop */}
-            <div className="hidden lg:block">
-              <Link href="/quote">
+            {/* Desktop Action Area */}
+            <div className="hidden lg:flex items-center">
+              <Link href="/contact">
                 <Button
-                  size="lg"
-                  className="font-heading text-xs tracking-wider uppercase font-semibold rounded-full shadow-lg hover:scale-105 transition-all bg-primary hover:bg-primary/90 text-white"
+                  size="pill"
+                  variant="default"
+                  className="shadow-sm font-heading text-xs uppercase tracking-wider font-semibold px-6 h-10"
                 >
-                  Get a Quote
+                  <span>Contact</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                 </Button>
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`lg:hidden p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg ${
-                isScrolled || isOpen ? "text-foreground hover:text-primary" : "text-white hover:text-primary"
+              className={`lg:hidden p-2 rounded-none transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                isScrolled || isOpen
+                  ? "bg-muted text-foreground hover:bg-muted/70"
+                  : "bg-white/10 text-white hover:bg-white/20"
               }`}
-              aria-label="Toggle menu"
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isOpen}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
-        </nav>
-      </motion.header>
+        </div>
+      </header>
 
-      {/* Mobile Menu Drawer (High z-index to overlay page sticky bars) */}
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -155,59 +150,53 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-foreground/60 backdrop-blur-md z-[60] lg:hidden"
+              className="fixed inset-0 bg-foreground/60 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Menu Panel */}
-            <motion.div
+            {/* Slide-over Drawer Panel */}
+            <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-16 right-0 bottom-0 w-full sm:max-w-sm bg-card shadow-2xl z-[65] lg:hidden overflow-y-auto border-l border-border"
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="fixed top-20 right-0 bottom-0 w-full sm:max-w-sm bg-card shadow-2xl z-40 lg:hidden overflow-y-auto flex flex-col justify-between"
             >
-              <div className="flex flex-col p-6 space-y-2">
-                {navLinks.map((link, index) => {
+              <div className="p-6 space-y-2">
+                <p className="font-heading text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-4">
+                  Navigation
+                </p>
+                {navLinks.map((link) => {
                   const isActive =
                     pathname === link.href ||
                     (link.href !== "/" && pathname.startsWith(link.href));
                   return (
-                    <motion.div
+                    <Link
                       key={link.name}
-                      initial={{ x: 50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.04 }}
+                      href={link.href}
+                      className={`flex items-center justify-between px-4 py-3 font-heading text-sm font-semibold transition-colors ${
+                        isActive
+                          ? "bg-primary text-primary-foreground font-bold"
+                          : "text-foreground hover:bg-muted hover:text-primary"
+                      }`}
                     >
-                      <Link
-                        href={link.href}
-                        className={`block px-4 py-3 rounded-xl font-heading text-sm font-semibold transition-colors ${
-                          isActive
-                            ? "bg-primary text-white shadow-sm"
-                            : "text-foreground hover:bg-primary/10 hover:text-primary"
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-                    </motion.div>
+                      <span>{link.name}</span>
+                      <ArrowRight className="w-4 h-4 opacity-50" />
+                    </Link>
                   );
                 })}
-
-                {/* Mobile CTA Button */}
-                <motion.div
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: navLinks.length * 0.04 }}
-                  className="pt-4"
-                >
-                  <Link href="/quote">
-                    <Button size="lg" className="w-full font-heading text-xs uppercase tracking-wider font-semibold rounded-full shadow-lg">
-                      Get a Quote
-                    </Button>
-                  </Link>
-                </motion.div>
               </div>
-            </motion.div>
+
+              {/* Drawer Bottom Actions */}
+              <div className="p-6 bg-muted/40">
+                <Link href="/contact" className="block">
+                  <Button size="lg" className="w-full font-heading text-xs uppercase tracking-wider">
+                    Contact Us
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            </motion.aside>
           </>
         )}
       </AnimatePresence>

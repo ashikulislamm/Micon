@@ -25,6 +25,7 @@ export interface ContactInfo {
   officePhone: string;
   emergencyPhone: string;
   email: string;
+  website: string;
   businessHours: BusinessHours;
   social: SocialLinks;
   googleMapsUrl: string;

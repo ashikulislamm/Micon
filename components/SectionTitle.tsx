@@ -23,33 +23,41 @@ export default function SectionTitle({
   className,
 }: SectionTitleProps) {
   const alignmentClasses = {
-    left: "text-left",
-    center: "text-center mx-auto",
-    right: "text-right ml-auto",
+    left: "text-left items-start",
+    center: "text-center items-center mx-auto",
+    right: "text-right items-end ml-auto",
   };
+
+  const cleanLabel = label ? label.replace(/^\/\/\s*/, "").trim() : null;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className={cn("mb-10 lg:mb-14", alignmentClasses[alignment], className)}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={cn(
+        "flex flex-col mb-10 lg:mb-14 max-w-3xl",
+        alignmentClasses[alignment],
+        className
+      )}
     >
-      {label && (
-        <div className="mb-3">
-          <span className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary uppercase">
-            {label}
+      {cleanLabel && (
+        <div className="mb-2.5">
+          <span className="text-xs font-semibold tracking-widest text-primary uppercase">
+            {cleanLabel}
           </span>
         </div>
       )}
 
-      <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+      <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-[1.2]">
         {title}
         {subtitle && (
           <>
             {" "}
-            <span className="font-accent italic text-primary">{subtitle}</span>
+            <span className="font-accent italic font-normal text-primary">
+              {subtitle}
+            </span>
           </>
         )}
       </h2>
@@ -57,20 +65,19 @@ export default function SectionTitle({
       {showUnderline && (
         <div
           className={cn(
-            "w-20 h-1 bg-primary mt-4 rounded-full",
-            alignment === "center" && "mx-auto",
-            alignment === "right" && "ml-auto"
+            "flex items-center gap-2 mt-3.5",
+            alignment === "center" && "justify-center",
+            alignment === "right" && "justify-end"
           )}
-        />
+          aria-hidden="true"
+        >
+          <div className="w-8 h-0.5 bg-primary" />
+          <div className="w-1.5 h-1.5 bg-primary/40" />
+        </div>
       )}
 
       {description && (
-        <p
-          className={cn(
-            "font-body text-sm sm:text-base lg:text-lg text-muted-foreground mt-4 md:mt-6 leading-relaxed",
-            alignment === "center" ? "max-w-3xl mx-auto" : "max-w-3xl"
-          )}
-        >
+        <p className="font-body text-sm sm:text-base text-muted-foreground mt-3 leading-relaxed">
           {description}
         </p>
       )}

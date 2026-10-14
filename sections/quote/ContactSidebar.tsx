@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Shield } from "lucide-react";
+import { COMPANY_CONTACT } from "@/lib/data/company";
 
 export default function ContactSidebar() {
   return (
@@ -11,25 +12,28 @@ export default function ContactSidebar() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white rounded-lg p-6 lg:p-8 shadow-sm border border-border"
+        className="bg-card rounded-2xl p-6 lg:p-8 shadow-sm border border-border"
       >
-        <h3 className="text-xl font-bold text-foreground mb-6">Contact Details</h3>
+        <h3 className="font-heading text-xl font-bold text-foreground mb-6">
+          Contact Details
+        </h3>
 
         <div className="space-y-6">
           {/* Office Address */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
                 <MapPin className="w-5 h-5 text-primary" />
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground uppercase mb-1">
-                BASHUNDHARA OFFICE
+              <p className="font-heading text-xs font-bold text-primary uppercase tracking-wider mb-1">
+                {COMPANY_CONTACT.headOffice.title}
               </p>
-              <p className="text-sm text-foreground leading-relaxed">
-                Block C, Bashurdhara R/A, Dhaka<br />
-                1229, Bangladesh
+              <p className="font-body text-sm text-card-foreground leading-relaxed">
+                {COMPANY_CONTACT.headOffice.addressLines[0]}
+                <br />
+                {COMPANY_CONTACT.headOffice.addressLines[1]}
               </p>
             </div>
           </div>
@@ -37,19 +41,19 @@ export default function ContactSidebar() {
           {/* Email */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
                 <Mail className="w-5 h-5 text-primary" />
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground uppercase mb-1">
-                EMAIL US
+              <p className="font-heading text-xs font-bold text-primary uppercase tracking-wider mb-1">
+                EMAIL DIRECTORS
               </p>
               <a
-                href="mailto:info@micon.com.bd"
-                className="text-sm text-foreground hover:text-primary transition-colors"
+                href={`mailto:${COMPANY_CONTACT.email}`}
+                className="font-body text-sm text-card-foreground hover:text-primary transition-colors"
               >
-                info@micon.com.bd
+                {COMPANY_CONTACT.email}
               </a>
             </div>
           </div>
@@ -57,67 +61,69 @@ export default function ContactSidebar() {
           {/* Phone */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
                 <Phone className="w-5 h-5 text-primary" />
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground uppercase mb-1">
-                CALL US
+              <p className="font-heading text-xs font-bold text-primary uppercase tracking-wider mb-1">
+                ENGINEERING HOTLINE
               </p>
               <a
-                href="tel:+8801234567890"
-                className="text-sm text-foreground hover:text-primary transition-colors"
+                href={`tel:${COMPANY_CONTACT.hotline.replace(/\s+/g, "")}`}
+                className="font-body text-sm font-semibold text-card-foreground hover:text-primary transition-colors"
               >
-                +880 1234-567890
+                {COMPANY_CONTACT.hotline}
               </a>
             </div>
           </div>
         </div>
 
         {/* Google Maps Embed */}
-        <div className="mt-6">
-          <div className="relative w-full h-48 rounded-lg overflow-hidden border border-border">
+        <div className="mt-8 pt-6 border-t border-border">
+          <div className="relative w-full h-48 rounded-xl overflow-hidden border border-border bg-muted">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.564920567891!2d90.42668!3d23.8103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7d8342195df%3A0xf58ef93431f67382!2sBashundhara%20Residential%20Area%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1234567890"
+              src={COMPANY_CONTACT.embedMapUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="grayscale hover:grayscale-0 transition-all duration-300"
+              title="MICON Head Office Map"
             />
             <a
-              href="https://maps.google.com/?q=Bashundhara,Dhaka"
+              href={COMPANY_CONTACT.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute bottom-2 left-2 bg-white px-3 py-1.5 rounded text-xs font-medium text-foreground shadow-md hover:shadow-lg transition-shadow flex items-center gap-1"
+              className="absolute bottom-2 left-2 bg-card/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-heading font-semibold text-foreground border border-border shadow-md hover:text-primary transition-colors flex items-center gap-1.5"
             >
-              <MapPin className="w-3 h-3" />
-              View on Google Maps
+              <MapPin className="w-3.5 h-3.5 text-primary" />
+              Open in Google Maps
             </a>
           </div>
         </div>
       </motion.div>
 
-      {/* Safety Certified Badge */}
+      {/* Safety & Quality Certified Badge */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="bg-primary/5 rounded-lg p-6 border border-primary/20"
+        className="bg-primary/5 rounded-2xl p-6 border border-primary/20"
       >
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center border border-primary/30">
               <Shield className="w-6 h-6 text-primary" />
             </div>
           </div>
           <div>
-            <h4 className="text-base font-bold text-foreground mb-2">Safety Certified</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              All MICON projects adhere to international ISO and OSHA standards.
+            <h4 className="font-heading text-base font-bold text-foreground mb-1.5">
+              ISO 9001:2015 & BNBC Compliant
+            </h4>
+            <p className="font-body text-xs text-muted-foreground leading-relaxed">
+              Every proposal is engineered in strict accordance with BNBC 2020 seismic guidelines and ISO 9001 quality protocols.
             </p>
           </div>
         </div>

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Get a Quote - MICON Construction Services",
     description:
       "Request detailed technical and financial proposals for your next industrial project. Free consultation available.",
-    url: "https://www.micon.com.bd/quote",
+    url: "https://www.miconbd.com/quote",
     type: "website",
   },
   alternates: {

@@ -9,24 +9,26 @@ import Sustainability from "@/sections/about/Sustainability";
 import CTA from "@/sections/about/CTA";
 
 export const metadata: Metadata = {
-  title: "About Us - MICON Engineering Excellence",
+  title: "About Us - Metal Infrastructures & Constructions Ltd. (MICON)",
   description:
-    "Learn about MICON's journey as a leading construction company in Bangladesh. Discover our mission, vision, core values, technical capacity, and commitment to sustainable engineering with ISO 9001:2015 certification.",
+    "Metal Infrastructures & Constructions Ltd. (MICON) is an ISO 9001:2015 and PWD Class-A certified design-build contractor led by BUET alumni with 15+ years of leadership, specializing in pre-engineered steel buildings and turnkey industrial civil engineering across Bangladesh.",
   keywords: [
     "about MICON",
+    "Metal Infrastructures & Constructions Ltd",
     "construction company Bangladesh",
-    "engineering company profile",
-    "ISO certified construction",
-    "sustainable construction",
-    "construction company history",
-    "engineering expertise",
-    "technical capacity",
+    "BUET civil engineering leadership",
+    "Engr Noman Or Rashid",
+    "PEB steel building manufacturer",
+    "PWD Class-A contractor",
+    "ISO 9001:2015 certified construction",
+    "turnkey industrial construction",
+    "sustainable green factory Bangladesh",
   ],
   openGraph: {
-    title: "About MICON - Engineering Excellence Since 2017",
+    title: "About MICON - Building Beyond Foundations",
     description:
-      "ISO 9001:2015 certified construction company with 7+ years of excellence, 30+ industry experts, and 100+ successful projects across Bangladesh.",
-    url: "https://www.micon.com.bd/about",
+      "ISO 9001:2015 and PWD Class-A certified engineering firm led by BUET alumni, delivering 100+ turnkey PEB steel and industrial civil infrastructure projects across Bangladesh.",
+    url: "https://www.miconbd.com/about",
     type: "website",
   },
   alternates: {

@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import SectionTitle from "@/components/SectionTitle";
 
 interface Partner {
   name: string;
@@ -8,94 +10,51 @@ interface Partner {
   website?: string;
 }
 
-// ==================== CONFIGURATION ====================
-// Customize the component behavior and appearance here
-
-const CONFIG = {
-  // Animation settings
-  animationDuration: 40, // seconds (lower = faster)
-  animationDurationMobile: 30, // seconds for mobile devices
-  pauseOnHover: true, // pause animation when hovering
-
-  // Display settings
-  showStatsBanner: true, // show "Trusted by X+" banner at bottom
-  totalPartners: 50, // number to display in stats banner
-  useGrayscaleEffect: true, // apply grayscale filter to logos
-
-  // Section content
-  section: {
-    title: "GLOBAL STRATEGIC PARTNERS",
-  },
-};
-
-const partners: Partner[] = [
-  { name: "RAK", logo: "/partners/RAK.png", website: "https://www.rakceramics.com/bangladesh/en-bd/" },
-  { name: "TVS", logo: "/partners/TVS.png", website: "https://www.tvsmotor.com/" },
-  {
-    name: "LafargeHolcim",
-    logo: "/partners/Holcim.png",
-    website: "https://lafargeholcim.com",
-  },
-  { name: "Bata", logo: "/partners/Bata.png", website: "https://www.batabd.com/" },
-  {
-    name: "Energypac",
-    logo: "/partners/Energypac.png",
-    website: "https://www.energypac.com/",
-  },
-  {
-    name: "Anfords",
-    logo: "/partners/Anfords.png",
-    website: "https://anfords.com",
-  },
-  { name: "CREC", logo: "/partners/CREC.png" },
-  { name: "Partex", logo: "/partners/Partex.png" },
-  { name: "Saikam", logo: "/partners/Saikam.png" },
+const PARTNERS: Partner[] = [
+  { name: "RAK Ceramics", logo: "/partners/RAK.png", website: "https://www.rakceramics.com/bangladesh/en-bd/" },
+  { name: "TVS Motor", logo: "/partners/TVS.png", website: "https://www.tvsmotor.com/" },
+  { name: "LafargeHolcim", logo: "/partners/Holcim.png", website: "https://lafargeholcim.com" },
+  { name: "Bata Bangladesh", logo: "/partners/Bata.png", website: "https://www.batabd.com/" },
+  { name: "Energypac", logo: "/partners/Energypac.png", website: "https://www.energypac.com/" },
+  { name: "Anfords Bangladesh", logo: "/partners/Anfords.png", website: "https://anfords.com" },
+  { name: "China Railway (CREC)", logo: "/partners/CREC.png" },
+  { name: "Partex Star Group", logo: "/partners/Partex.png" },
+  { name: "Saikam Logistics", logo: "/partners/Saikam.png" },
+  { name: "Alliance Healthcare", logo: "/partners/Alliance.png" },
 ];
 
-// ======================================================
-
 export default function Partners() {
-  // Duplicate the partners array for seamless infinite scroll
-  const duplicatedPartners = [...partners, ...partners, ...partners];
+  const duplicatedPartners = [...PARTNERS, ...PARTNERS, ...PARTNERS];
 
   return (
-    <section className="relative py-16 md:py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
-        {/* Centered Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
-          <p className="font-accent text-xs lg:text-sm font-semibold tracking-widest text-primary mb-3 uppercase">
-            STRATEGIC ALLIANCES
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Global Strategic <span className="font-accent italic text-primary">Partners</span>
-          </h2>
-        </div>
+    <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionTitle
+          label="STRATEGIC ALLIANCES"
+          title="Trusted by Leading"
+          subtitle="Industrial"
+          alignment="center"
+          className="mb-10 lg:mb-14"
+        />
 
         {/* Infinite Slider Container */}
         <div className="relative w-full overflow-hidden">
-          {/* Gradient Overlays for smooth fade effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          {/* Gradient Overlays for smooth edge fade */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling Track */}
-          <div className="flex gap-8 md:gap-12 lg:gap-16 animate-infinite-scroll">
+          <div className="flex gap-4 sm:gap-6 lg:gap-8 animate-infinite-scroll py-2">
             {duplicatedPartners.map((partner, index) => {
               const CardContent = (
-                <div className="relative w-full h-full flex items-center justify-center bg-card border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-primary/50">
-                  {/* Placeholder for logo - replace with actual images */}
-                  <div className="w-full h-full flex items-center justify-center">
-                    {/* Uncomment when you have actual logos */}
-                    {
-                      <img
-                        src={partner.logo}
-                        alt={`${partner.name} logo`}
-                        className={`max-w-full max-h-full object-contain transition-all duration-300 ${
-                          CONFIG.useGrayscaleEffect
-                            ? "filter grayscale group-hover:grayscale-0"
-                            : ""
-                        }`}
-                      />
-                    }
+                <div className="relative w-full h-full flex items-center justify-center bg-card p-3 sm:p-4 transition-all duration-200 hover: shadow-xs group">
+                  <div className="relative w-28 sm:w-36 h-12 flex items-center justify-center">
+                    <Image
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      fill
+                      className="object-contain filter grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-200"
+                    />
                   </div>
                 </div>
               );
@@ -103,7 +62,7 @@ export default function Partners() {
               return (
                 <div
                   key={`${partner.name}-${index}`}
-                  className="flex-shrink-0 w-32 md:w-40 lg:w-48 h-20 md:h-24 lg:h-28 flex items-center justify-center group"
+                  className="flex-shrink-0 w-36 sm:w-44 lg:w-48 h-20 sm:h-22 flex items-center justify-center"
                 >
                   {partner.website ? (
                     <a
@@ -124,18 +83,12 @@ export default function Partners() {
           </div>
         </div>
 
-        {/* Optional: Stats or Trust Indicators */}
-        {CONFIG.showStatsBanner && (
-          <div className="mt-12 md:mt-16 text-center">
-            <p className="text-sm md:text-base text-muted-foreground">
-              Trusted by{" "}
-              <span className="font-bold text-foreground">
-                {CONFIG.totalPartners}+
-              </span>{" "}
-              industry leaders worldwide
-            </p>
-          </div>
-        )}
+        {/* Trust Endorsement Note */}
+        <div className="mt-12 text-center">
+          <p className="text-xs text-muted-foreground uppercase tracking-wider">
+            Single-Source EPC Contractor for Industrial Enterprises Across Bangladesh
+          </p>
+        </div>
       </div>
     </section>
   );

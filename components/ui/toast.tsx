@@ -71,7 +71,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
               <button
                 onClick={() => removeToast(t.id)}
-                className="text-muted-foreground hover:text-foreground transition-colors p-1 rounded-md"
+                className="text-muted-foreground hover:text-foreground transition-colors p-1 rounded-none"
               >
                 <X className="w-4 h-4" />
               </button>

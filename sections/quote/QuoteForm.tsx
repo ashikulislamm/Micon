@@ -251,7 +251,7 @@ export default function QuoteForm() {
                     key={type.id}
                     type="button"
                     onClick={() => handleProjectTypeSelect(type.id)}
-                    className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all duration-200 ${
+                    className={`flex items-center gap-3 p-4 rounded-none border-2 transition-all duration-200 ${
                       formData.projectType === type.id
                         ? "border-primary bg-primary/5"
                         : "border-border hover:border-primary/50 bg-white"
