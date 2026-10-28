@@ -30,12 +30,6 @@ const CERTIFICATES = [
     subtitle: "Sustainable EPC Design & Audits",
   },
   {
-    icon: ShieldCheck,
-    tag: "MES / DGFI",
-    title: "MES Security Clearance",
-    subtitle: "Military Engineer Services Enlisted",
-  },
-  {
     icon: CheckCircle2,
     tag: "BEZA REG",
     title: "BEZA Enlisted Contractor",
